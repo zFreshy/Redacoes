@@ -1,0 +1,313 @@
+@keyframes loadingResponse1 {
+  from {
+    transform: translateY(10%);
+  }
+  to {
+    transform: translateY(-10%);
+  }
+}
+
+@keyframes loadingResponse2 {
+  from {
+    transform: translateY(10%);
+  }
+  to {
+    transform: translateY(-10%);
+  }
+}
+
+@keyframes loadingResponse3 {
+  from {
+    transform: translateY(10%);
+  }
+  to {
+    transform: translateY(-10%);
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.botspace {
+  position: relative;
+  height: calc(90vh - 100px);
+  width: 100%;
+  max-height: 85%;
+  overflow-x: auto;
+  overflow-y: auto;
+  background-color: #33343f;
+  padding: 0;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 300;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.offcanvas-title {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 2.5rem;
+  background: linear-gradient(to right, #1E1E49, #CBB5A1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+strong {
+  font-weight: 700;
+}
+
+#userPrompt {
+  background-color: #494b59;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 90%;
+  margin-right: auto;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Balão de resposta do chatbot */
+#botResponse {
+  background-color: #494b59;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  justify-self: end;
+  width: 90%;
+  margin-left: auto;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+#loadResponse1 {
+  margin-top: 1%;
+  margin-left: 1%;
+  font-size: 0.5rem;
+  animation-name: loadingResponse1;
+  animation-duration: 0.5s;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+#loadResponse2 {
+  margin-top: 1%;
+  font-size: 0.5rem;
+  animation-name: loadingResponse2;
+  animation-delay: 0.25s;
+  animation-duration: 0.5s;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+#loadResponse3 {
+  margin-top: 1%;
+  font-size: 0.5rem;
+  animation-name: loadingResponse3;
+  animation-delay: 0.5s;
+  animation-duration: 0.5s;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+#painel {
+  width: 40%; /* Aumentar = aba para a direita */
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#loadingDiv {
+  display: flex;
+}
+
+#notaFinal, #comp1, #comp2, #comp3, #comp4, #comp5 {
+  color: #CBB5A1;
+}
+
+body::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: #1E1E49;        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #888;    /* color of the scroll thumb */
+  width: 2px;
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid #888;  /* creates padding around scroll thumb */
+}
+
+#nav {
+  padding: 5px;
+  font-size: 40px;
+  background-color: #ffffff;
+  border-bottom: 2px solid #a8a8a8;
+}
+
+/* Barra de mensagem */
+.chat-input {
+  display: flex; /* Removed absolute positioning */
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  height: 50px; /* Reduced height for a more balanced look */
+}
+
+/* Campo de input */
+#user-input {
+  width: 90%;
+  height: 100vh;
+  margin-top: 110vh;
+  border: none;
+  outline: none;
+  font-size: 8px;
+  background-color: #ffffff;
+  color: #7e7777;
+  border-radius: 5px;
+  resize: none;
+}
+
+#areaUsavel {
+  margin: 0;
+  padding: 0;
+}
+
+#areaTexto {
+  padding: 0;
+  margin: 0;
+  background-color: #ffffff;
+  position: relative;
+}
+
+#tema-input {
+  position: absolute;
+  background-color: transparent;
+  border: none;
+  color: #7e7777;
+  font-size: 2rem;
+  left: 0;
+  margin-top: 10px;
+}
+
+/* Placeholder do input */
+#user-input::placeholder, #tema-input::placeholder {
+  color: #7e7777;
+}
+
+/* Botão de enviar */
+#confirmPrompt {
+  background-color: #1E1E49;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 10px; /* Espaçamento do botão */
+  top: 1vh;
+}
+
+#areaSobre {
+  display: none;
+  background-color: #f0f0f2;
+  height: 110vh;
+}
+
+#abrir {
+  display: none;
+}
+
+#comp1zero {
+  padding: 5px;
+  display: none;
+}
+
+#comp2zero {
+  padding: 5px;
+  display: none;
+}
+
+#comp3zero {
+  padding: 5px;
+  display: none;
+}
+
+#comp4zero {
+  padding: 5px;
+  display: none;
+}
+
+#comp5zero {
+  padding: 5px;
+  display: none;
+}
+
+.chart-container {
+  width: 50%;
+  position: relative;
+}
+.chart-legend {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+}
+.chart-legend li {
+  display: flex;
+  align-items: center;
+}
+.chart-legend span {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* #myChart {
+  cursor: pointer;
+} */

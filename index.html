@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Redações</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    
+        <script src="https://kit.fontawesome.com/3da44e21a2.js" crossorigin="anonymous"></script>
+
+        <script src="https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js"></script>
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+        <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+
+        <link rel="shortcut icon" href="img/img/bLogo.png" type="image/x-icon">
+
+        <script src="https://unpkg.com/scrollreveal"></script>
+
+    </head>
+    <body>
+                <!-- chatbot -->
+                <div id="areaUsavel" class="row">
+                  <div id="nav" class="nav col-12">
+                    <p>Redação</p>
+                    <button id="confirmPrompt" class="btn btn-primary">Enviar Redação</button>
+                  </div>
+
+                  <div class="col-7" id="areaTexto">
+                    <div class="chat-input d-flex">
+                      <input type="text" id="tema-input" class="form-control w-50" placeholder="Digite o tema da redação">
+                      <textarea id="user-input" class="form-control fs-5" placeholder="Digite sua redação aqui..."></textarea>
+                      <span id="abrir" class="bi bi-arrows-angle-contract fs-2" onclick="abrir()">
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-5" id="areaSobre">
+                      <h2 id="notaVal">NOTA:</h2>
+
+                      <div class="chart-container">
+                        <canvas id="myChart"></canvas>
+
+                      </div>
+
+                      <div>
+                        <button class="btn btn-primary" id="comp1zero">Competência 1 Nota 0</button>
+                        <button class="btn btn-primary" id="comp2zero">Competência 2 Nota 0</button>
+                        <button class="btn btn-primary" id="comp3zero">Competência 3 Nota 0</button>
+                        <button class="btn btn-primary" id="comp4zero">Competência 4 Nota 0</button>
+                        <button class="btn btn-primary" id="comp5zero">Competência 5 Nota 0</button>
+                      </div>
+
+                      <h5 id="comentariosGeraisVal">
+                        Comentários Gerais:
+                      </h5>
+
+                  </div>
+
+                  <div id="comentariosComps" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                      <span class="close">&times;</span>
+                      <h3 id="modalCompNome">Competência: </h2>
+                      <h4 id="modalCompNota">Nota: </h4>
+                      <p id="modalCompSobre">Sobre a competência: </p>
+                    </div>
+                  
+                  </div>
+
+        
+                <div class="container d-none">
+                  <div class="row justify-content-center">
+                    <div class="col-md-8">
+                      <div class="chat-container">
+                        <div id="chat-history"></div>
+                      </div>
+                      <div class="chat-input d-flex">
+                        <textarea id="user-input" class="form-control me-2" placeholder="Digite sua redação aqui..."></textarea>
+                        <input type="text" id="tema-input" class="form-control me-2" placeholder="Digite o tema da redação">
+                        <button id="confirmPrompt" class="btn btn-primary">Enviar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+              </div>
+
+        <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+        <script src="script.js"></script>
+
+        <script type="importmap">
+          {
+            "imports": {
+              "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
+          }
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+
+          // var typed = new Typed(".auto-type",{
+          //     strings : ["Trabalhe", "Cresça", "Recrute"],
+          //     typeSpeed : 100,
+          //     backSpeed : 100,
+          //     loop : true,
+          //     loopCount: Infinity
+          // })
+  
+          // setTimeout(function() {
+  
+          //     $('#parallax1').parallax({imageSrc: 'img/cidadeparallax.png'});
+  
+          // }, 100)
+
+                // Adiciona um ouvinte de evento para o "Enter" no input
+      document.getElementById("user-input").addEventListener("keydown", function (event) {
+        if (event.key === "Enter" && !event.shiftKey) {
+          // Se Shift não estiver pressionado, insere uma nova linha
+          event.preventDefault(); // Impede o comportamento padrão do "Enter"
+          this.value += "\n";
+        }
+      });
+          
+
+        //   var i = 0;
+        //   var txt = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras efficitur sagittis tempus. Fusce ultrices felis et congue tempus. Vivamus pretium urna vel nibh feugiat elementum. Phasellus vehicula iaculis nisl ut auctor. Vestibulum quis iaculis magna, at venenatis enim. Vivamus ultricies accumsan dui. Proin ultricies ac diam at blandit.';
+        //   var speed = 50;
+        //   let scroll = window.scrollY 
+
+        //   function typeWriter() {
+        //     if (i < txt.length) {
+        //       document.getElementById("paragrafo-about-enterprise").innerHTML += txt.charAt(i);
+        //       i++;
+        //       setTimeout(typeWriter, speed);
+        //     }
+        //   }
+
+        //   let paragrafo = document.getElementById("paragrafo-about-enterprise")
+        //   let texto = document.getElementById("text")
+
+        //   window.addEventListener('scroll', function() {
+        //   // Verifica se o usuário chegou na altura definida
+        //   if (window.scrollY >= 300) {
+        //     // Chama a função typewriter
+        //     typewriter(); 
+        //     // Remove o evento de rolagem para que a função seja executada apenas uma vez
+        //     window.removeEventListener('scroll', arguments.callee); 
+        //   }
+        // });
+
+
+
+
+
+
+
+      </script>
+
+<script type="module" defer>
+
+  let input = document.getElementById("user-input")
+  let inputV = input.value
+  let btn = document.getElementById("confirmPrompt")
+  let resultSpace = document.getElementById("chat-history")
+
+  btn.addEventListener('click', clicar)
+
+
+  import { GoogleGenerativeAI } from "@google/generative-ai";
+
+  // Fetch your API_KEY
+  const API_KEY = "AIzaSyCPqHcG8bgiBqS8n0AKiDVaF3MUatetb18";
+
+  // Access your API key (see "Set up your API key" above)
+  const genAI = new GoogleGenerativeAI(API_KEY);
+
+
+   async function clicar() {
+    let input = document.getElementById("user-input")
+    let inputV = input.value
+    let resultSpace = document.getElementById("chat-history")
+    let temaInput = document.getElementById("tema-input");
+    let temaV = temaInput.value; 
+
+
+    const generationConfig = {
+      stopSequences: [""],
+      maxOutputTokens: 100000,
+      temperature: 0.5,
+      topP: 0.1,
+      topK: 16,
+    };
+
+
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash", generationConfig });
+    const prompt = inputV
+    const tema = temaV
+
+
+    // Desabilitar o botão "Enviar"
+  document.getElementById("confirmPrompt").disabled = true; 
+
+
+      // Limpar o input
+      // input.value = ""; 
+      input.disabled = true
+      document.getElementById("tema-input").disabled = true
+
+      // Criar a div para a mensagem "Gerando resposta..."
+    const loadingDiv = document.createElement('div');
+    loadingDiv.id = "loadingDiv"
+    loadingDiv.innerHTML = `<p>Gerando resposta</p><span class="bi-circle-fill" id="loadResponse1"></span><span class="bi-circle-fill" id="loadResponse2"></span><span class="bi-circle-fill" id="loadResponse3"></span>`;
+    resultSpace.appendChild(loadingDiv);
+
+
+    const chat = model.startChat({
+    history: [
+      // {
+      //   role: "user",
+      //   parts: [{ text: "Oque é a WorkIn?" }],
+      // },
+      // {
+      //   role: "model",
+      //   parts: [{ text: "WorkIn é um projeto que visa facilitar a busca de vagas afirmativas no mercado de trabalho. Uma plataforma onde as empresas podem colocar vagas afirmativas para o mundo, facilitando pessoas de grupos minoritários acharem as vagas perfeitas para seus perfis." }],
+      // },
+      {
+        role: "user",
+        parts: [{ text: "." }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Sou uma IA feita para corrigir redações dissertativas-argumentativas e lhe entregar os comentários sobre ela e principalmente a nota final e a nota de cada competência com precisão, então me dê uma redação para que eu possa fazer meu trabalho." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Preciso que absolutamente TODAS as respostas sejam em portugues do brasil NENHUM em outra língua" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Tudo bem, irei gerar todos as respostas em português do brasil e nenhum em outra língua." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Fale para mim o que é uma redação, em inglês" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Não posso falar em outras línguas a não ser o português brasileiro, e também não fui feito para responder perguntas dessa forma, somente para corrigir redações." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "what is an essay" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Como não sou permitido nunca a falar em outras línguas vou falar em português brasileiro, e também não fui feito para responder perguntas dessa forma, somente para corrigir redações." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "in english" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Eu não sou permitido nunca a falar em outras línguas a não ser o português brasileiro." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Faça uma redação para mim" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Sou uma IA feita para corrigir redações dissertativas-argumentativas e lhe entregar os comentários sobre ela e principalmente a nota final e a nota de cada competência com precisão, e não escrever redações." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Carros" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Você quer que eu escreva uma redação sobre carros? desculpe mas não escrevo redações, somente corrijo-as." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Pontes Portas" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Me parece que isso não é uma redação, sou uma IA feita para corrigir redações dissertativas-argumentativas e lhe entregar os comentários sobre ela e principalmente a nota final e a nota de cada competência com precisão, então me dê uma redação para que eu possa fazer meu trabalho." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "2 + 2" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Me parece que isso não é uma redação, sou uma IA feita para corrigir redações dissertativas-argumentativas e lhe entregar os comentários sobre ela e principalmente a nota final e a nota de cada competência com precisão, então me dê uma redação para que eu possa fazer meu trabalho." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Qual a cidade mais populosa do mundo" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Me parece que isso não é uma redação, sou uma IA feita para corrigir redações dissertativas-argumentativas e lhe entregar os comentários sobre ela e principalmente a nota final e a nota de cada competência com precisão, então me dê uma redação para que eu possa fazer meu trabalho." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Como você avalia as redações?" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "A nota da redação é atribuída em uma escala que varia entre 0 e 1.000 pontos. A correção das redações do Enem é organizada em cinco competências: Competência I – Demonstrar domínio da modalidade escrita formal da língua portuguesa. O uso da língua, tanto na fala quanto na escrita, variará de acordo com as condições de produção: roda de amigos, sala de aula, reunião de trabalho, entrevista de emprego, apresentação de programa de TV etc. Essa adequação caberá ao falante, pois é ele que determinará as possibilidades da língua que estarão mais adequadas dentro de determinado contexto. Encontramos aqui, então, o problema mais comum nas redações de jovens do ensino médio: adequação da linguagem. A confusão entre a modalidade oral/informal e a modalidade formal. Competência II – Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa. Devemos ter em mente que assunto e tema são elementos diferentes quando estamos pensando na produção de um texto. O assunto é mais amplo, mais genérico e pode ser desdobrado em temas. O tema, dessa forma, é o recorte de um assunto. \nCompetência III – Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. Organização é um aspecto que deve ser prioridade ao produzir uma redação no Enem. Para que isso seja alcançado, é necessário que as informações, opiniões e argumentos selecionados por você estejam em sintonia, ou seja, aquilo que foi observado por você e mereceu lugar em seu texto deve: relacionar-se com as outras ideias, estar nos parágrafos adequados do texto e ter sido interpretado por você. Além disso, tudo isso deve ser feito com um único propósito: defender um ponto de vista. Competência IV – Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. Para que um texto seja produzido de forma satisfatória, é necessário que as ideias estejam articuladas. Sabe o que isso significa na prática? A articulação de um texto pode ser construída por meio de vários recursos, os quais são denominados de “recursos coesivos”. Alguns dos exemplos mais comuns são os conectores: Competência V – Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos. A quinta competência, assim como já citado no início do texto, é o critério que indica a obrigação da existência de ações que possam solucionar os problemas discutidos ao longo do texto. Essas intervenções precisam, antes de tudo, respeitar os direitos humanos, que são diretrizes de elaboração de toda a prova do Exame Nacional do Ensino Médio. Ações governamentais, iniciativas privadas, organizações sociais são áreas bastante exploradas pelos candidatos para a elaboração de ações de intervenção. No final vou te dar a sua nota final (que depende de quanto você tirar nas competências EXP: se você tirar 200 na primeira 200 na segunda 100 na terceira 120 na quarta e 100 na quinta sua nota final será 720, lembrando que cada competência é somada de 20 em 20) e as notas de todas as competencias separadamente e a nota final é a soma das notas das competências" }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Lembre que a nota final deve ser a soma das competências" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Claro, a nota final é igual a soma das competências" }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Sempre coloque as notas de cada competencia e nota final em tags span com IDs respectivos e as competências deverão ter data-label respectivas, exemplo NOTA FINAL: <span id='notaFinal'>800</span> Competência 1: <span id='comp1' data-label='Competência 1'>150</span> Competência 2: <span id='comp2' data-label='Competência 2'>150</span> Competência 3: <span id='comp3' data-label='Competência 3'>150</span> Competência 4: <span id='comp4' data-label='Competência 4'>150</span> Competência 5: <span id='comp5' data-label='Competência 5'>200</span> para eu utiliza-los no meu html. Também preciso que você salve em spans os comentários gerais da redação e o que poderia ser melhorado e salve os comentários de cada competência separadamente com spans e ids também por exemplo: <span id='comentariosGerais'>A redação foi escrita de forma coesa e... (resto dos comentários), No geral a redação ficou muito boa, porém deveria melhorar nesses pontos: (falar o que poderia melhorar na redação)</span>, <span id='comentariosComp1'>De acordo com a competência 1 demonstrar domínio da norma padrão da língua escrita, a redação está muito bem escrita e com a norma padrão bem feita... (falar sobre a competencia 1 na redação)</span>" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Ok, agora os valores terão IDs para serem usados no html e as competências deverão ter os nomes no data-label por exemplo a comp1 deverá ter um data-label='Competência 1'." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "A partir de agora vou lhe enviar várias redações de exemplo para você entender totalmente como realmente analisar uma redação, e depois vou realmente te dar a minha redação para você analisar" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Ok, irei salvar as redações que você me enviar e corrigi-las para compreender como funciona." }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Tema: Desafios para o enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher no Brasil Redação: A Declaração Universal dos Direitos Humanos de 1948 prevê a todos os direitos à igualdade e à dignidade. Porém, na contemporaneidade brasileira, a concretização da garantia em voga é dificultada pelos desafios relacionados ao enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher. Tal cenário ocorre, em especial, devido à morosidade estatal e à má formação sociocultural. De início, é imprescindível ressaltar a desassistência do Poder Público como fator agravante do diminuto reconhecimento social em questão. A partir da perspectiva citada, segundo o filósofo Friedrich Hegel, o Estado é o pilar inicial de uma nação, isto é, constitui o meio correferido à atenuação das mazelas sociais. No entanto, o Governo permanece ineficaz, no tocante à efetivação do referido princípio, em virtude da escassez de investimentos voltados a combater a invisibilização do trabalho de cuidado feminino, visto que diversas mulheres, principalmente das classes mais baixas, sofrem com a baixa remuneração e cargos exaustivos de afazeres domésticos e cuidados às pessoas que demandam serviços de assistência, como crianças e idosos, o que mostra a negligência das autoridades em oferecer iguais oportunidades de empregos remunerados a ambos os sexos. Como efeito, enquanto persistir a insuficiência governamental, a desigualdade de gênero continuará a crescer. Ademais, a precária formação sociocultural ratifica a preocupante situação mencionada. Sob essa óptica, de acordo com o educador Paulo Freire, 'Se a educação sozinha não transforma a sociedade, sem ela, tampouco, a sociedade muda'. Todavia, percebe-se que a escola não oferece uma instrução qualificada, no tangente à aprendizagem das consequências da desvalorização das atividades de cuidado realizadas pelas mulheres, já que grande parte das instituições educacionais foca em um ensino extremamente conteudista, pouco voltado para debates cívicos acerca das questões de gênero. Além disso, notabiliza-se a letargia familiar, uma vez que é ínfima a transmissão de princípios e de valores referentes à importância da igualdade de tarefas diárias de forma igualitária entre os sexos, porquanto a normalização da mentalidade patriarcal é reflexo da não prioridade dada ao assunto em análise. Logo, há um aumento considerável do preconceito contra a mulher no cotidiano brasileiro. Diante dos fatos supracitados, o Estado, agente regulador da comunidade, deve mobilizar a iniciativa privada, por meio de investimentos e de incentivos fiscais direcionados ao combate à invisibilidade do trabalho de auxílio feito pela mulher, bem como ao oferecimento de empregos formais de maneira justa e igual entre homens e mulheres, a fim de melhorar a qualidade de vida da população. Simultaneamente, é fundamental que a escola, aliada à família, oriente e eduque os alunos, desde a tenra idade, por intermédio de palestras - ministradas por profissionais qualificados -, de atividades lúdicas, de diálogo e de exemplos, que expliquem a importância da igualdade de gênero e do respeito a todos, com o intuito de formarcidadãos competentes. Assim, os direitos à igualdade e à dignidade, previstos na Declaração Universal dos Direitos Humanos, poderão ser efetivados." }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "<span id='comentariosGerais'>A redação demonstra excelente domínio da língua portuguesa, coesão impecável e uso estratégico de repertórios socioculturais. o escritor(a) do texto demonstra profundo entendimento do tema e desenvolve argumentos consistentes, utilizando-se de uma abordagem abrangente que engloba aspectos mundiais, nacionais e individuais. A estrutura textual é organizada e o projeto de texto estratégico garante uma leitura fluida e uma excelente interpretação da proposta. As duas propostas de intervenção são completas e coerentes com os argumentos apresentados, com detalhamento e finalidade bem definidos.  A única sugestão de melhoria seria a revisão da repetição do termo 'baixa' na linha 10, que, apesar de não comprometer a fluidez do texto, poderia ser substituída por um sinônimo.</span> <span id='comentariosComp1'>Domínio impecável da modalidade escrita formal da língua portuguesa, com estruturas sintáticas complexas e ausência de desvios de norma padrão.</span> <span id='comentariosComp2'>Coesão exemplar, com uso preciso de operadores argumentativos e elementos de ligação entre os parágrafos, garantindo a fluidez e a clareza do texto. A única repetição do termo 'baixa' não compromete a coesão, mas poderia ser revisada.</span> <span id='comentariosComp3'>Repertórios socioculturais legítimos e pertinentes ao tema, utilizados de forma produtiva para a construção de argumentos sólidos. o escritor(a) do texto demonstra domínio e capacidade de relacionar os repertórios à invisibilização do trabalho de cuidado realizado pelas mulheres.</span> <span id='comentariosComp4'>Argumentos consistentes e bem desenvolvidos, com análise crítica e abrangente da problemática abordada. o escritor(a) do texto demonstra capacidade de construir uma argumentação lógica e persuasiva, explorando diferentes aspectos da questão.</span> <span id='comentariosComp5'>Duas propostas de intervenção completas, coerentes com os argumentos apresentados e com detalhamento preciso de agente, ação, meio e finalidade. o escritor(a) do texto demonstra conhecimento sobre as diferentes esferas de atuação e elabora propostas eficazes para a resolução da problemática.</span> NOTA FINAL: <span id='notaFinal'>1000</span>. COMP 1: <span id='comp1' data-label='Competência 1'>200</span> COMP 2: <span id='comp2' data-label='Competência 2'>200</span> COMP 3: <span id='comp3' data-label='Competência 3'>200</span> COMP 4: <span id='comp4' data-label='Competência 4'>200</span> COMP 5: <span id='comp5' data-label='Competência 5'>200</span>" }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Tema: crise da mobilidade urbana no Brasil Redação: No século XX, o presidente Juscelino Kubitschek incentivou a entrada da indústria automotiva intensamente e estimulou o modelo de transporte no Brasil: rodoviarismo. Essa política de JK gerou grandes problemas na mobilidade urbana brasileira que ainda se perpetuam. Em sua fase produtiva, além de ter realizado derretiram-se e intensificaram a ação industrial e a descaracterização da contribuição da perspectiva de difícil locomoção dos habitantes da cidade. Primordialmente, pode-se afirmar que a falta de investimento no transporte público está intimamente relacionada à superlotação já que, sem levar ao sucateamento das frotas e uma diminuição na quantidade de veículos para alta demanda populacional, induzirá a problemática. contribui para a preferência pelo transporte individual intensificando o tráfego nas ruas, os famigerados engarrafamentos e favorecendo as poluições sonora e atmosférica, devido ao excesso de gás carbônico emitido e ruídos dos automóveis. Além disso, vale ressaltar que o modelo histórico de organização do espaço geográfico brasileiro não ajuda para uma mudança de paradigma, mas ao longo do todo século XX e século XXI, houve uma rápida urbanização quando um investimento acelerado das cidades e, também, ofereceu uma grande quantidade de pessoas devido a melhores condições de vidas. Trazendo um impacto no sistema de locomoção, uma vez que não consegue atender a essa crescente de usuários, nem prestar um serviço de qualidade. Consequentemente, não se consegue planejar o espaço para comportar toda essa malha automobilística individual. Dentre estas medidas são necessárias para melhorar a mobilidade urbana no Brasil. Para isso, é imprescindível a atuação do governo na ampliação da rede pública de transporte e estimular ações de implantação de ciclismo e adoção de pedágio, estimular o padrão e o fim dos impostos baratos, a redução da produção. Além disso, deve fazer reforma agrária para diminuir o inchaço das cidades." }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "<span id='comentariosGerais'>A redação apresenta domínio da língua portuguesa, com alguns desvios gramaticais e semânticos que podem ser facilmente corrigidos.  o escritor(a) do texto demonstra conhecimento de repertórios socioculturais e consegue relacioná-los ao tema, mas a organização e o desenvolvimento da argumentação precisam ser aprimorados. A proposta de intervenção apresenta falhas, faltando elementos importantes para alcançar a pontuação máxima. </span> <span id='comentariosComp1'>A redação demonstra domínio da modalidade escrita formal da Língua Portuguesa, mas apresenta alguns desvios gramaticais. O uso do artigo definido 'o' em 'o modelo' deveria ser substituído pelo artigo indefinido 'um', pois o modelo ainda não é conhecido no texto. A inadequação semântica entre 'rodoviarismo' e 'rodoviário' também precisa ser corrigida. A falta de paralelismo sintático no trecho citado pode ser resolvida com a inserção de um artigo definido antes de 'ruído'.</span> <span id='comp1' data-label='Competência 1'>160</span> <span id='comentariosComp2'>o escritor(a) do texto demonstra compreensão da proposta de redação e utiliza um repertório sociocultural de qualidade, com a menção à política de incentivo à indústria automobilística de JK. No entanto, a organização da argumentação precisa ser aprimorada. A ineficiência da gestão estatal, citada na introdução, não é desenvolvida com ênfase no texto, o que compromete a coerência.</span> <span id='comp2' data-label='Competência 2'>200</span> <span id='comentariosComp3'>A organização e o desenvolvimento da argumentação precisam ser aprimorados. A relação entre a introdução e o desenvolvimento do texto é pouco clara, com a questão da 'ineficiência da gestão estatal' não sendo explorada com a devida profundidade. A falta de desenvolvimento desse ponto compromete a coerência do texto.</span> <span id='comp3' data-label='Competência 3'>160</span> <span id='comentariosComp4'>o escritor(a) do texto demonstra conhecimento dos mecanismos linguísticos, com uso adequado de conectivos. No entanto, a inadequação semântica do conectivo 'com essa situação' prejudica a clareza da argumentação.  Apesar do bom uso de conectivos, alguns desvios gramaticais e semânticos impedem a obtenção da pontuação máxima.</span> <span id='comp4' data-label='Competência 4'>160</span> <span id='comentariosComp5'>A proposta de intervenção apresenta falhas, faltando elementos como o meio e o detalhamento da ação. Apesar da coerência com a discussão, a proposta precisa ser aprimorada para alcançar a pontuação máxima. </span> <span id='comp5' data-label='Competência 5'>120</span> <span id='notaFinal'>800</span>" }],
+        // parts: [{ text: "Competência 1: <span id='comp1' data-label='Competência 1'>160</span> – Demonstrar domínio da modalidade escrita formal da Língua Portuguesa. Não pretendemos aqui esgotar todas as questões gramaticais do texto da Marina. Selecionamos apenas algumas que julgamos representativas. Uso do artigo “o” em “o modelo” Comentário: seria melhor Marina ter usado o artigo indefinido aqui: “um modelo de transporte”, já que esse modelo ainda não é conhecido no texto, tanto que ela o apresenta posteriormente. Inadequação semântica: rodoviarismo x rodoviário Comentário: houve uma inadequação semântica. O modelo de transporte é o rodoviário. A autora devia ter usado o termo “rodoviário”. Rodoviarismo seria outra coisa, seria a política de ênfase nesse modelo rodoviário. Falta de paralelismo sintático Comentário: pelas normas do paralelismo sintático, o trecho deveria ficar assim: “devido ao excesso de gás carbônico emitido e AO ruído de automóveis”. Marina devia ter inserido um artigo definido antes de “ruído”, já que também há um artigo definido antes de “excesso”. Competência 2: <span id='comp1' data-label='Competência 2'>200</span> – Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa. Referência a fato histórico (muito bom) Comentário: conforme já falamos, temos que analisar as coisas ruins e também as boas de um texto. Temos que imitar os bons exemplos e afastarmo-nos dos maus. E aqui a Marina arrebentou, lançou logo de cara um repertório sociocultural de qualidade: uma menção (adequada ao tema) à política de incentivo à indústria automobilística realizada por JK. Ótimo! Competência 3: <span id='comp1' data-label='Competência 3'>160</span> – Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. Releia o texto todo, com especial ênfase nos dois primeiros parágrafos Comentário: como os comentários dessa competência precisam levar em conta o texto como um todo, não vamos reproduzir nenhum trecho aqui. Vamos apenas citar alguns trechos. Na verdade a relação entre um trecho e outro. Preste atenção: na introdução, Marina havia citado “a ineficiência da gestão estatal” (6ª linha) como uma das causas do problema. No entanto, a questão específica da “ineficiência da gestão estatal” não é tratada com ênfase em nenhum momento do texto, nem no segundo parágrafo, que é o que mais se aproxima desse ponto. Veja bem, essa questão não é ignorada, há referência a ela no texto, porém apenas de resvalo. Dessa forma, Marina deixou de desenvolver um ponto importantíssimo do seu texto. Ao deixar esse furo, ela fez com que a coerência do seu texto ficasse levemente comprometida. Competência 4: <span id='comp1' data-label='Competência 4'>160</span> – Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. Inadequação semântica de conectivo Comentário: esse conector “com essa situação” não é adequado para esse contexto. Marina poderia ter usado “nessa situação” ou “dentro dessa situação”. O “com essa” ou dá sentido de companhia ou de causa, e essas duas noções não são adequadas para o contexto acima. Farto uso de conectivos Comentário: notou o bom uso que a Marina fez dos conectivos? Ela inicia o parágrafo e todos os períodos internos com um elemento conectivo: “desse modo”, “para isso”, “além disso”. Ela não só demonstrou um variado repertório de instrumentos de coesão, como também os usou dentro do sentido correto. Esse fenômeno ocorreu por todo o texto. Contudo, um ou outro problema tiraram das mãos de Marina os 200 pontos nessa competência. Vamos comentar, abaixo, a incorreção semântica que ela cometeu nesse mesmo parágrafo que você acabou de ler. Competência 5: <span id='comp1' data-label='Competência 5'>120</span> – Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos Faltaram alguns elementos na proposta de intervenção Esse foi o ponto fraco do texto da Marina. Sua proposta de redação, apesar de coerente com a discussão, só possui o AGENTE, a AÇÃO a ser realizada e a FINALIDADE/CONSEQUÊNCIA dessa ação. Eram necessárias mais coisas para ela chegar aos 200 pontos. NOTA FINAL: <span id='notaFinal'>800</span>" }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Tema: Caso Geisy: exibicionismo, machismo, intolerância ou má-educação? Redação: O excesso de exibição física acarretou uma grande avalanche de revoltas dos alunos da universidade tais como: machismo, intolerância e a má educação. A forma de expressar do ser humano, tanto física ou mental, causa uma série de ações favoráveis ou contrárias que são apresentadas pelas algumas pessoas. No caso da mulher na maneira em que se veste, a certo tipo de roupa, traz honestidade ou lascívia para ela, causando opiniões divididas ou até mesmo machismo por alguns homens através de cantadas. O nível de sensualidade que apresenta em um singelo pano decotado, traz a intolerância e o ciúme de algumas mulheres, acarretando discriminação e revoltas. Assim, basta saber usar em certos tipos de ambientes e locais apropriados. O fenômeno que ocorreu no Brasil o caso da aluna 'Geisy de Arruda que foi com vestido curto na universidade', a falta de educação ocorreu nos dois aspectos no caso da aluna e dos alunos: ela não foi bem sucedida no seu vestuário e eles por comportarem como animais no campo de vez a conselha-lá. O fato de sentir-se bem mostrando a sensualidade não é aceitável por algumas pessoas que traz intolerância, má-educação, machismo e discriminação social. Portanto, vivemos em um país livre, sem interferência nos costumes particulares das pessoas, não podemos jogar pedra na vontade do outro, quem nunca errou joga a primeira pedra." }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "<span id='comentariosGerais'>A redação apresenta sérios problemas de escrita e organização, demonstrando grande dificuldade com a expressão escrita. O autor demonstra ter ideias, mas não consegue expressá-las de forma clara e precisa. A linguagem utilizada é confusa, com uso inadequado de expressões,  mudança constante do sujeito das orações, ausência de sujeito e confusão sintática. Os problemas são recorrentes em todo o texto, prejudicando a compreensão da argumentação.  </span> <span id='comentariosComp1'>A redação demonstra total domínio da modalidade escrita formal da Língua Portuguesa. A linguagem utilizada é confusa, com uso inadequado de expressões e problemas de estrutura sintática, tornando a leitura difícil e prejudicando a compreensão das ideias. A mudança constante do sujeito das orações, a inexistência de sujeito e a confusão sintática revelam uma grande dificuldade com a expressão escrita.  </span> <span id='comentariosComp2'>A redação demonstra total incapacidade de compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento. O autor não consegue desenvolver um tema com clareza, utilizando uma linguagem inadequada e confusa, tornando o texto incompreensível. </span> <span id='comentariosComp3'>A redação demonstra total incapacidade de selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. A falta de coesão e coerência, além da linguagem confusa, impossibilitam a compreensão do ponto de vista do autor.</span> <span id='comentariosComp4'>A redação demonstra total incapacidade de demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. A falta de coesão, a estrutura sintática confusa e a utilização inadequada de expressões comprometem completamente a capacidade de argumentação do texto.</span> <span id='comentariosComp5'>A redação não apresenta proposta de intervenção para o problema abordado. </span> <span id='comp1' data-label='Competência 1'>0</span> <span id='comp2' data-label='Competência 2'>0</span> <span id='comp3' data-label='Competência 3'>0</span> <span id='comp4' data-label='Competência 4'>0</span> <span id='comp5' data-label='Competência 5'>0</span> <span id='notaFinal'>0</span>" }],
+        // parts: [{ text: "Competência 1: <span id='comp1' data-label='Competência 1'>160</span> – Demonstrar domínio da modalidade escrita formal da Língua Portuguesa. Não pretendemos aqui esgotar todas as questões gramaticais do texto da Marina. Selecionamos apenas algumas que julgamos representativas. Uso do artigo “o” em “o modelo” Comentário: seria melhor Marina ter usado o artigo indefinido aqui: “um modelo de transporte”, já que esse modelo ainda não é conhecido no texto, tanto que ela o apresenta posteriormente. Inadequação semântica: rodoviarismo x rodoviário Comentário: houve uma inadequação semântica. O modelo de transporte é o rodoviário. A autora devia ter usado o termo “rodoviário”. Rodoviarismo seria outra coisa, seria a política de ênfase nesse modelo rodoviário. Falta de paralelismo sintático Comentário: pelas normas do paralelismo sintático, o trecho deveria ficar assim: “devido ao excesso de gás carbônico emitido e AO ruído de automóveis”. Marina devia ter inserido um artigo definido antes de “ruído”, já que também há um artigo definido antes de “excesso”. Competência 2: <span id='comp1' data-label='Competência 2'>200</span> – Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa. Referência a fato histórico (muito bom) Comentário: conforme já falamos, temos que analisar as coisas ruins e também as boas de um texto. Temos que imitar os bons exemplos e afastarmo-nos dos maus. E aqui a Marina arrebentou, lançou logo de cara um repertório sociocultural de qualidade: uma menção (adequada ao tema) à política de incentivo à indústria automobilística realizada por JK. Ótimo! Competência 3: <span id='comp1' data-label='Competência 3'>160</span> – Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. Releia o texto todo, com especial ênfase nos dois primeiros parágrafos Comentário: como os comentários dessa competência precisam levar em conta o texto como um todo, não vamos reproduzir nenhum trecho aqui. Vamos apenas citar alguns trechos. Na verdade a relação entre um trecho e outro. Preste atenção: na introdução, Marina havia citado “a ineficiência da gestão estatal” (6ª linha) como uma das causas do problema. No entanto, a questão específica da “ineficiência da gestão estatal” não é tratada com ênfase em nenhum momento do texto, nem no segundo parágrafo, que é o que mais se aproxima desse ponto. Veja bem, essa questão não é ignorada, há referência a ela no texto, porém apenas de resvalo. Dessa forma, Marina deixou de desenvolver um ponto importantíssimo do seu texto. Ao deixar esse furo, ela fez com que a coerência do seu texto ficasse levemente comprometida. Competência 4: <span id='comp1' data-label='Competência 4'>160</span> – Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. Inadequação semântica de conectivo Comentário: esse conector “com essa situação” não é adequado para esse contexto. Marina poderia ter usado “nessa situação” ou “dentro dessa situação”. O “com essa” ou dá sentido de companhia ou de causa, e essas duas noções não são adequadas para o contexto acima. Farto uso de conectivos Comentário: notou o bom uso que a Marina fez dos conectivos? Ela inicia o parágrafo e todos os períodos internos com um elemento conectivo: “desse modo”, “para isso”, “além disso”. Ela não só demonstrou um variado repertório de instrumentos de coesão, como também os usou dentro do sentido correto. Esse fenômeno ocorreu por todo o texto. Contudo, um ou outro problema tiraram das mãos de Marina os 200 pontos nessa competência. Vamos comentar, abaixo, a incorreção semântica que ela cometeu nesse mesmo parágrafo que você acabou de ler. Competência 5: <span id='comp1' data-label='Competência 5'>120</span> – Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos Faltaram alguns elementos na proposta de intervenção Esse foi o ponto fraco do texto da Marina. Sua proposta de redação, apesar de coerente com a discussão, só possui o AGENTE, a AÇÃO a ser realizada e a FINALIDADE/CONSEQUÊNCIA dessa ação. Eram necessárias mais coisas para ela chegar aos 200 pontos. NOTA FINAL: <span id='notaFinal'>800</span>" }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Tema: Como você encara os cursos a distância e as universidades virtuais? Redação: Nos dias atuais, a fragilidade educacional tornou-se alvo de várias discussões, pelo fato de vários países, considerados subdesenvolvidos, apresentarem índices mínimos de produtividade e prosperidade econômica. Enquanto os países desenvolvidos investem intensamente na educação humana, os países subdesenvolvidos apresentam milhares de analfabetos, e com isso, o país cada vez mais, carece de profissionais especializados em diversas áreas de trabalho. Algumas soluções poderiam ser viáveis como um incentivo intensificado por parte dos pais, para que seus filhos frequentem as escolas e colégios, para que esses não sofram com a precariedade financeira, as autoridades governamentais deveriam estabelecer diversos projetos, tanto para adultos, adolescentes quanto para as crianças, para que o analfabetismo seja extinguido, os países desenvolvidos poderiam estabelecer ajudas financeiras a esses países, entre outras colocações. Portanto, os países subdesenvolvidos deveriam investir na educação de seus habitantes, pois proporcionaria vários avanços político, econômico e cultural desses, as pessoas teriam empregos melhores que conduziriam o país a crescimentos nos 'rankings', e as gerações futuras não sofreriam com tamanha desigualdade existente no planeta, que hoje aflinge as pessoas carentes" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "<span id='comentariosGerais'>A redação demonstra um bom início, com a comparação entre países que investem mais ou menos na educação e a proposição de soluções para a melhoria da educação no Brasil. No entanto, o autor foge completamente do tema proposto, que era a educação universitária a distância, invalidando totalmente o texto. A fuga do tema é um erro grave que impede a avaliação das outras competências. Apesar do desvio do tema, alguns aspectos do texto podem ser analisados. No primeiro parágrafo, a expressão 'educação humana' precisa ser melhor definida, já que a educação pode ser aplicada a outros seres, como animais. No terceiro parágrafo, o uso do plural em 'ajuda financeira' é inadequado, pois a expressão já possui sentido de plural. O mesmo ocorre no quarto parágrafo, com a expressão 'crescimento do país no ranking educacional', que deve ser usada no singular.</span> <span id='comentariosComp1'>A redação apresenta problemas de domínio da modalidade escrita formal da Língua Portuguesa. O uso indevido do plural em algumas expressões, como 'ajuda financeira' e 'crescimento do país no ranking educacional', indica falta de atenção à norma padrão.  </span> <span id='comentariosComp2'>A redação demonstra total incapacidade de compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento. O autor foge completamente do tema proposto, que era a educação universitária a distância, invalidando o texto. A fuga do tema é um erro grave que impede a avaliação das outras competências.</span> <span id='comentariosComp3'>A redação demonstra total incapacidade de selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. O desvio do tema impossibilita a avaliação da capacidade de argumentação do autor.</span> <span id='comentariosComp4'>A redação demonstra total incapacidade de demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. O desvio do tema impossibilita a avaliação da capacidade de argumentação do autor.</span> <span id='comentariosComp5'>A redação não apresenta proposta de intervenção para o problema abordado. O desvio do tema impossibilita a avaliação da capacidade de argumentação do autor.</span> <span id='comp1' data-label='Competência 1'>0</span> <span id='comp2' data-label='Competência 2'>0</span> <span id='comp3' data-label='Competência 3'>0</span> <span id='comp4' data-label='Competência 4'>0</span> <span id='comp5' data-label='Competência 5'>0</span> <span id='notaFinal'>0</span>" }],
+        // parts: [{ text: "Competência 1: <span id='comp1' data-label='Competência 1'>160</span> – Demonstrar domínio da modalidade escrita formal da Língua Portuguesa. Não pretendemos aqui esgotar todas as questões gramaticais do texto da Marina. Selecionamos apenas algumas que julgamos representativas. Uso do artigo “o” em “o modelo” Comentário: seria melhor Marina ter usado o artigo indefinido aqui: “um modelo de transporte”, já que esse modelo ainda não é conhecido no texto, tanto que ela o apresenta posteriormente. Inadequação semântica: rodoviarismo x rodoviário Comentário: houve uma inadequação semântica. O modelo de transporte é o rodoviário. A autora devia ter usado o termo “rodoviário”. Rodoviarismo seria outra coisa, seria a política de ênfase nesse modelo rodoviário. Falta de paralelismo sintático Comentário: pelas normas do paralelismo sintático, o trecho deveria ficar assim: “devido ao excesso de gás carbônico emitido e AO ruído de automóveis”. Marina devia ter inserido um artigo definido antes de “ruído”, já que também há um artigo definido antes de “excesso”. Competência 2: <span id='comp1' data-label='Competência 2'>200</span> – Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa. Referência a fato histórico (muito bom) Comentário: conforme já falamos, temos que analisar as coisas ruins e também as boas de um texto. Temos que imitar os bons exemplos e afastarmo-nos dos maus. E aqui a Marina arrebentou, lançou logo de cara um repertório sociocultural de qualidade: uma menção (adequada ao tema) à política de incentivo à indústria automobilística realizada por JK. Ótimo! Competência 3: <span id='comp1' data-label='Competência 3'>160</span> – Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. Releia o texto todo, com especial ênfase nos dois primeiros parágrafos Comentário: como os comentários dessa competência precisam levar em conta o texto como um todo, não vamos reproduzir nenhum trecho aqui. Vamos apenas citar alguns trechos. Na verdade a relação entre um trecho e outro. Preste atenção: na introdução, Marina havia citado “a ineficiência da gestão estatal” (6ª linha) como uma das causas do problema. No entanto, a questão específica da “ineficiência da gestão estatal” não é tratada com ênfase em nenhum momento do texto, nem no segundo parágrafo, que é o que mais se aproxima desse ponto. Veja bem, essa questão não é ignorada, há referência a ela no texto, porém apenas de resvalo. Dessa forma, Marina deixou de desenvolver um ponto importantíssimo do seu texto. Ao deixar esse furo, ela fez com que a coerência do seu texto ficasse levemente comprometida. Competência 4: <span id='comp1' data-label='Competência 4'>160</span> – Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. Inadequação semântica de conectivo Comentário: esse conector “com essa situação” não é adequado para esse contexto. Marina poderia ter usado “nessa situação” ou “dentro dessa situação”. O “com essa” ou dá sentido de companhia ou de causa, e essas duas noções não são adequadas para o contexto acima. Farto uso de conectivos Comentário: notou o bom uso que a Marina fez dos conectivos? Ela inicia o parágrafo e todos os períodos internos com um elemento conectivo: “desse modo”, “para isso”, “além disso”. Ela não só demonstrou um variado repertório de instrumentos de coesão, como também os usou dentro do sentido correto. Esse fenômeno ocorreu por todo o texto. Contudo, um ou outro problema tiraram das mãos de Marina os 200 pontos nessa competência. Vamos comentar, abaixo, a incorreção semântica que ela cometeu nesse mesmo parágrafo que você acabou de ler. Competência 5: <span id='comp1' data-label='Competência 5'>120</span> – Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos Faltaram alguns elementos na proposta de intervenção Esse foi o ponto fraco do texto da Marina. Sua proposta de redação, apesar de coerente com a discussão, só possui o AGENTE, a AÇÃO a ser realizada e a FINALIDADE/CONSEQUÊNCIA dessa ação. Eram necessárias mais coisas para ela chegar aos 200 pontos. NOTA FINAL: <span id='notaFinal'>800</span>" }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Tema: Toque de recolher protege juventude e sociedade? Redação: Há quatro anos foi introduzido pela primeira vez em uma cidade no Estado de São Paulo, o toque de recolher para menores de 18 anos. O toque de recolher consiste básicamente em impor um horário para que os menores de idade, frequentem bares, lanchonetes, lan houses, bailes, ou seja, inibe a vida noturna desses jovens. Com o objetivo de controlar os altos indices de envolvimento desses menores em transações ilícitas. Porém, vem-se criando uma polêmica em torno dessa decisão judicial. A questão é que essa imposição de um horário pré-definido para que os menores possam transitar em inderterminados lugares, vem sendo associada a procedimentos abusivos, e até mesmo preconceituosos, assim como o nazismo, segundo Paulo Machado, Ouvidor Adjunto da EBC - Empresa Brasileira de Comunicação. Além disso existem outras questões, como por exemplo: a liberdade de criar seus filhos da forma que lhe convém, admitindo ou não que ele tenha vida noturna ativa, ou ainda a liberdade do jovem em tomar suas próprias decisões. No entanto, o toque de recolher é apontado pelas autoridades como responsável pela redução de 80% dos atos infracionais e de 82% das reclamações do Conselho Tutelar, no município de Fernandopolis. É portanto, altamente perceptivel a eficácia desse procedimento. E mesmo não tendo o apoio total da sociedade, é possivél comprovar através das estatísticas, que esse procedimento vem rendendo apenas pontos positivos, diminuindo o envolvimento de jovens em atividades ilícitas e protejendo dessa forma a sociedade." }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "<span id='comentariosGerais'>A redação demonstra falta de autoria e de capacidade de construir uma argumentação própria. O autor apenas reproduz trechos dos textos de estímulo, sem apresentar um ponto de vista crítico e original. A estrutura textual também apresenta problemas, com a separação inadequada de sujeito e verbo e a falta de coesão entre os parágrafos.</span> <span id='comentariosComp1'>A redação apresenta problemas de domínio da modalidade escrita formal da Língua Portuguesa. A separação inadequada de sujeito e verbo nas orações, como no primeiro parágrafo, demonstra falta de conhecimento das regras gramaticais.  </span> <span id='comentariosComp2'>A redação demonstra total incapacidade de compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento. O autor não demonstra capacidade de analisar o tema e construir uma argumentação própria, limitando-se a reproduzir trechos dos textos de estímulo. </span> <span id='comentariosComp3'>A redação demonstra total incapacidade de selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. A falta de autoria e a reprodução de trechos dos textos de estímulo impedem a construção de uma argumentação consistente. </span> <span id='comentariosComp4'>A redação demonstra total incapacidade de demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. A separação inadequada de sujeito e verbo, além da falta de coesão entre os parágrafos, prejudicam a clareza e a fluidez do texto, impedindo o desenvolvimento de uma argumentação consistente.</span> <span id='comentariosComp5'>A redação não apresenta proposta de intervenção para o problema abordado. A falta de autoria e de desenvolvimento de um ponto de vista próprio impedem a elaboração de uma proposta de intervenção eficaz.</span> <span id='comp1' data-label='Competência 1'>0</span> <span id='comp2' data-label='Competência 2'>0</span> <span id='comp3' data-label='Competência 3'>0</span> <span id='comp4' data-label='Competência 4'>0</span> <span id='comp5' data-label='Competência 5'>0</span> <span id='notaFinal'>0</span>" }],
+        // parts: [{ text: "Competência 1: <span id='comp1' data-label='Competência 1'>160</span> – Demonstrar domínio da modalidade escrita formal da Língua Portuguesa. Não pretendemos aqui esgotar todas as questões gramaticais do texto da Marina. Selecionamos apenas algumas que julgamos representativas. Uso do artigo “o” em “o modelo” Comentário: seria melhor Marina ter usado o artigo indefinido aqui: “um modelo de transporte”, já que esse modelo ainda não é conhecido no texto, tanto que ela o apresenta posteriormente. Inadequação semântica: rodoviarismo x rodoviário Comentário: houve uma inadequação semântica. O modelo de transporte é o rodoviário. A autora devia ter usado o termo “rodoviário”. Rodoviarismo seria outra coisa, seria a política de ênfase nesse modelo rodoviário. Falta de paralelismo sintático Comentário: pelas normas do paralelismo sintático, o trecho deveria ficar assim: “devido ao excesso de gás carbônico emitido e AO ruído de automóveis”. Marina devia ter inserido um artigo definido antes de “ruído”, já que também há um artigo definido antes de “excesso”. Competência 2: <span id='comp1' data-label='Competência 2'>200</span> – Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa. Referência a fato histórico (muito bom) Comentário: conforme já falamos, temos que analisar as coisas ruins e também as boas de um texto. Temos que imitar os bons exemplos e afastarmo-nos dos maus. E aqui a Marina arrebentou, lançou logo de cara um repertório sociocultural de qualidade: uma menção (adequada ao tema) à política de incentivo à indústria automobilística realizada por JK. Ótimo! Competência 3: <span id='comp1' data-label='Competência 3'>160</span> – Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. Releia o texto todo, com especial ênfase nos dois primeiros parágrafos Comentário: como os comentários dessa competência precisam levar em conta o texto como um todo, não vamos reproduzir nenhum trecho aqui. Vamos apenas citar alguns trechos. Na verdade a relação entre um trecho e outro. Preste atenção: na introdução, Marina havia citado “a ineficiência da gestão estatal” (6ª linha) como uma das causas do problema. No entanto, a questão específica da “ineficiência da gestão estatal” não é tratada com ênfase em nenhum momento do texto, nem no segundo parágrafo, que é o que mais se aproxima desse ponto. Veja bem, essa questão não é ignorada, há referência a ela no texto, porém apenas de resvalo. Dessa forma, Marina deixou de desenvolver um ponto importantíssimo do seu texto. Ao deixar esse furo, ela fez com que a coerência do seu texto ficasse levemente comprometida. Competência 4: <span id='comp1' data-label='Competência 4'>160</span> – Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. Inadequação semântica de conectivo Comentário: esse conector “com essa situação” não é adequado para esse contexto. Marina poderia ter usado “nessa situação” ou “dentro dessa situação”. O “com essa” ou dá sentido de companhia ou de causa, e essas duas noções não são adequadas para o contexto acima. Farto uso de conectivos Comentário: notou o bom uso que a Marina fez dos conectivos? Ela inicia o parágrafo e todos os períodos internos com um elemento conectivo: “desse modo”, “para isso”, “além disso”. Ela não só demonstrou um variado repertório de instrumentos de coesão, como também os usou dentro do sentido correto. Esse fenômeno ocorreu por todo o texto. Contudo, um ou outro problema tiraram das mãos de Marina os 200 pontos nessa competência. Vamos comentar, abaixo, a incorreção semântica que ela cometeu nesse mesmo parágrafo que você acabou de ler. Competência 5: <span id='comp1' data-label='Competência 5'>120</span> – Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos Faltaram alguns elementos na proposta de intervenção Esse foi o ponto fraco do texto da Marina. Sua proposta de redação, apesar de coerente com a discussão, só possui o AGENTE, a AÇÃO a ser realizada e a FINALIDADE/CONSEQUÊNCIA dessa ação. Eram necessárias mais coisas para ela chegar aos 200 pontos. NOTA FINAL: <span id='notaFinal'>800</span>" }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Tema: A ciência na era da pós-verdade Redação: É de fundamental importância destacar, de destacar como a ciência transformou-se no mundo atualmente atual. Por esse motivo, a era da pós-verdade influenciou um grupo de pessoas, governos, instituições sociais e meios de comunicação. Isso aconteceu, porque muitos ocorridos são questionados, sem saber a verdadeira certeza. De uma forma ou de outra, os indivíduos desconfiam e acabam comentando sobre temas diversos. Pode-se mencionar também como exemplos, a terra, vacinas, vírus de HIV e espécies. Nesses fatos citados, as vacinas ressaltam de maneira mais ampla, por ser um fato preocupante, já que trata de saúde. Em uma segunda análise, a tecnologia também está presente, pois o uso da internet é excessivo e fatores como boatos e mensagens falsas podem ser criados e divulgados por meio da mesma, comprometendo a afirmação. Muitos métodos científicos são utilizados para experimentos, atividades e testes abrangentes do determinado conteúdo. Além disso, alguns casos são comprovados e esclarecidos. Conclui-se por meio desses aspectos, que aspectos que a ciência da pós-verdade jamais será ignorada. Teorias e técnicas científicas precisam ser exploradas e realizadas para o melhor desenvolvimento e credibilidade do nosso planeta." }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "<span id='comentariosGerais'>A redação apresenta sérios problemas de escrita, organização e clareza, dificultando a compreensão das ideias. O autor demonstra ter dificuldade em dominar a linguagem escrita e em construir uma argumentação consistente. As frases são vagas e confusas, com termos e expressões imprecisos, e a falta de um ponto de vista definido impede a construção de uma dissertação argumentativa. A conclusão apresenta um entendimento equivocado do tema, utilizando a expressão 'ciência da pós-verdade' de forma inadequada. </span> <span id='comentariosComp1'>A redação apresenta problemas de domínio da modalidade escrita formal da Língua Portuguesa. A linguagem utilizada é confusa e imprecisa, com frases vagas e termos sem definição clara, dificultando a compreensão do texto.</span> <span id='comentariosComp2'>A redação demonstra total incapacidade de compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento. O autor não demonstra conhecimento sobre o tema da pós-verdade, utilizando termos de forma inadequada e sem construir uma argumentação consistente. A falta de clareza na linguagem impede a compreensão da proposta do autor.</span> <span id='comentariosComp3'>A redação demonstra total incapacidade de selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. A falta de um ponto de vista definido, a linguagem confusa e a ausência de argumentação impedem a construção de uma linha de raciocínio consistente.</span> <span id='comentariosComp4'>A redação demonstra total incapacidade de demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. A linguagem confusa, as frases vagas e a ausência de uma linha de raciocínio organizada impedem a construção de uma argumentação consistente.</span> <span id='comentariosComp5'>A redação não apresenta proposta de intervenção para o problema abordado. A falta de um ponto de vista definido e a ausência de uma argumentação consistente impedem a elaboração de uma proposta de intervenção eficaz.</span> <span id='comentariosComp1'>A redação apresenta problemas de domínio da modalidade escrita formal da Língua Portuguesa. A separação inadequada de sujeito e verbo nas orações, como no primeiro parágrafo, demonstra falta de conhecimento das regras gramaticais.  </span> <span id='comentariosComp2'>A redação demonstra total incapacidade de compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento. O autor não demonstra capacidade de analisar o tema e construir uma argumentação própria, limitando-se a reproduzir trechos dos textos de estímulo. </span> <span id='comentariosComp3'>A redação demonstra total incapacidade de selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. A falta de autoria e a reprodução de trechos dos textos de estímulo impedem a construção de uma argumentação consistente. </span> <span id='comentariosComp4'>A redação demonstra total incapacidade de demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. A separação inadequada de sujeito e verbo, além da falta de coesão entre os parágrafos, prejudicam a clareza e a fluidez do texto, impedindo o desenvolvimento de uma argumentação consistente.</span> <span id='comentariosComp5'>A redação não apresenta proposta de intervenção para o problema abordado. A falta de autoria e de desenvolvimento de um ponto de vista próprio impedem a elaboração de uma proposta de intervenção eficaz.</span> <span id='comp1' data-label='Competência 1'>80</span> <span id='comp2' data-label='Competência 2'>20</span> <span id='comp3' data-label='Competência 3'>0</span> <span id='comp4' data-label='Competência 4'>0</span> <span id='comp5' data-label='Competência 5'>0</span> <span id='notaFinal'>100</span>" }],
+        // parts: [{ text: "Competência 1: <span id='comp1' data-label='Competência 1'>160</span> – Demonstrar domínio da modalidade escrita formal da Língua Portuguesa. Não pretendemos aqui esgotar todas as questões gramaticais do texto da Marina. Selecionamos apenas algumas que julgamos representativas. Uso do artigo “o” em “o modelo” Comentário: seria melhor Marina ter usado o artigo indefinido aqui: “um modelo de transporte”, já que esse modelo ainda não é conhecido no texto, tanto que ela o apresenta posteriormente. Inadequação semântica: rodoviarismo x rodoviário Comentário: houve uma inadequação semântica. O modelo de transporte é o rodoviário. A autora devia ter usado o termo “rodoviário”. Rodoviarismo seria outra coisa, seria a política de ênfase nesse modelo rodoviário. Falta de paralelismo sintático Comentário: pelas normas do paralelismo sintático, o trecho deveria ficar assim: “devido ao excesso de gás carbônico emitido e AO ruído de automóveis”. Marina devia ter inserido um artigo definido antes de “ruído”, já que também há um artigo definido antes de “excesso”. Competência 2: <span id='comp1' data-label='Competência 2'>200</span> – Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa. Referência a fato histórico (muito bom) Comentário: conforme já falamos, temos que analisar as coisas ruins e também as boas de um texto. Temos que imitar os bons exemplos e afastarmo-nos dos maus. E aqui a Marina arrebentou, lançou logo de cara um repertório sociocultural de qualidade: uma menção (adequada ao tema) à política de incentivo à indústria automobilística realizada por JK. Ótimo! Competência 3: <span id='comp1' data-label='Competência 3'>160</span> – Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. Releia o texto todo, com especial ênfase nos dois primeiros parágrafos Comentário: como os comentários dessa competência precisam levar em conta o texto como um todo, não vamos reproduzir nenhum trecho aqui. Vamos apenas citar alguns trechos. Na verdade a relação entre um trecho e outro. Preste atenção: na introdução, Marina havia citado “a ineficiência da gestão estatal” (6ª linha) como uma das causas do problema. No entanto, a questão específica da “ineficiência da gestão estatal” não é tratada com ênfase em nenhum momento do texto, nem no segundo parágrafo, que é o que mais se aproxima desse ponto. Veja bem, essa questão não é ignorada, há referência a ela no texto, porém apenas de resvalo. Dessa forma, Marina deixou de desenvolver um ponto importantíssimo do seu texto. Ao deixar esse furo, ela fez com que a coerência do seu texto ficasse levemente comprometida. Competência 4: <span id='comp1' data-label='Competência 4'>160</span> – Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. Inadequação semântica de conectivo Comentário: esse conector “com essa situação” não é adequado para esse contexto. Marina poderia ter usado “nessa situação” ou “dentro dessa situação”. O “com essa” ou dá sentido de companhia ou de causa, e essas duas noções não são adequadas para o contexto acima. Farto uso de conectivos Comentário: notou o bom uso que a Marina fez dos conectivos? Ela inicia o parágrafo e todos os períodos internos com um elemento conectivo: “desse modo”, “para isso”, “além disso”. Ela não só demonstrou um variado repertório de instrumentos de coesão, como também os usou dentro do sentido correto. Esse fenômeno ocorreu por todo o texto. Contudo, um ou outro problema tiraram das mãos de Marina os 200 pontos nessa competência. Vamos comentar, abaixo, a incorreção semântica que ela cometeu nesse mesmo parágrafo que você acabou de ler. Competência 5: <span id='comp1' data-label='Competência 5'>120</span> – Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos Faltaram alguns elementos na proposta de intervenção Esse foi o ponto fraco do texto da Marina. Sua proposta de redação, apesar de coerente com a discussão, só possui o AGENTE, a AÇÃO a ser realizada e a FINALIDADE/CONSEQUÊNCIA dessa ação. Eram necessárias mais coisas para ela chegar aos 200 pontos. NOTA FINAL: <span id='notaFinal'>800</span>" }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Tema: Universidade em crise: quem paga a conta? Redação: No Brasil, as melhores universidades sempre foram as públicas: USP e UNICAMP, por exemplo, figuram entre as 300 melhores do planeta, segundo o ranking inglês THE (Times Higher Education). Essa qualidade é proveniente de investimentos, principalmente em produção de conhecimento, além da oportunidade de ensino gratuito à população. Quanto à produção de conhecimento, pesquisas de enorme relevância são desenvolvidas no país. Na UnB (Universidade Federal de Brasília de Brasília), por exemplo, há o desenvolvimento de um equipamento para facilitar a cicatrização de diabéticos. Tal iniciativa pode reduzir gastos do SUS (Sistema Único de Saúde) com esses pacientes e proporcionar maior qualidade de vida, evitando o sofrimento de amputações. Se a instituição fosse privada, o mais provável é que esse estudo não existiria, pois a prioridade seria o lucro, indício disso é a inexistência de pesquisas científicas em faculdades particulares no território nacional. Em relação á à gratuidade, se hoje os mais pobres são minoria no Ensino Superior ensino superior público, a cobrança de mensalidade reduziria o percentual desses a próximo de quase zero. O número de estudantes oriundos de escolas públicas nas faculdades aumenta com programas sociais como cotas, subsídios e bolsas e não com mais um entrave financeiro. Enfim, o aparente gasto com pesquisas pode reduzir custos para o Governo, como no caso de estudos relacionados à saúde, e a gratuidade é essencial à formação de muitos alunos. A educação, portanto, precisa ser prioridade e os investimentos em Universidades públicas mantido mantidos ou, se possível, ampliado ampliados." }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "<span id='comentariosGerais'>A redação demonstra um bom domínio da linguagem, com poucos erros gramaticais. No entanto, a argumentação apresenta falhas e precisa ser aprimorada para garantir uma análise mais consistente do tema. O autor compreende o tema, mas não desenvolve uma argumentação completa e convincente, limitando-se a apresentar afirmações superficiais e sem comprovação factual. A proposta de intervenção também é vaga e necessita de maior detalhamento.</span> <span id='comentariosComp1'>A redação demonstra bom domínio da modalidade escrita formal da Língua Portuguesa, com poucos erros gramaticais. No entanto, alguns problemas de concordância no último parágrafo impedem a obtenção da pontuação máxima.</span> <span id='comentariosComp2'>A redação demonstra compreensão da proposta de redação e utiliza conceitos relevantes para o desenvolvimento do tema. No entanto, a argumentação apresenta falhas e precisa ser aprimorada, com a apresentação de evidências e dados que sustentem as afirmações. </span> <span id='comentariosComp3'>A redação demonstra capacidade de selecionar, relacionar, organizar e interpretar informações, fatos e opiniões. No entanto, a argumentação apresenta falhas, com a utilização de argumentos superficiais e sem comprovação factual. A falta de desenvolvimento de uma linha de argumentação consistente prejudica a obtenção da pontuação máxima.</span> <span id='comentariosComp4'>A redação demonstra conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. No entanto, a argumentação apresenta falhas, com a utilização de argumentos superficiais e sem comprovação factual. A falta de desenvolvimento de uma linha de argumentação consistente prejudica a obtenção da pontuação máxima.</span> <span id='comentariosComp5'>A redação apresenta proposta de intervenção para o problema abordado. No entanto, a proposta é vaga e necessita de maior detalhamento, com a definição precisa de ações, agentes e meios para sua implementação.</span> <span id='comp1' data-label='Competência 1'>160</span> <span id='comp2' data-label='Competência 2'>160</span> <span id='comp3' data-label='Competência 3'>120</span> <span id='comp4' data-label='Competência 4'>160</span> <span id='comp5' data-label='Competência 5'>120</span> <span id='notaFinal'>720</span>" }],
+        // parts: [{ text: "Competência 1: <span id='comp1' data-label='Competência 1'>160</span> – Demonstrar domínio da modalidade escrita formal da Língua Portuguesa. Não pretendemos aqui esgotar todas as questões gramaticais do texto da Marina. Selecionamos apenas algumas que julgamos representativas. Uso do artigo “o” em “o modelo” Comentário: seria melhor Marina ter usado o artigo indefinido aqui: “um modelo de transporte”, já que esse modelo ainda não é conhecido no texto, tanto que ela o apresenta posteriormente. Inadequação semântica: rodoviarismo x rodoviário Comentário: houve uma inadequação semântica. O modelo de transporte é o rodoviário. A autora devia ter usado o termo “rodoviário”. Rodoviarismo seria outra coisa, seria a política de ênfase nesse modelo rodoviário. Falta de paralelismo sintático Comentário: pelas normas do paralelismo sintático, o trecho deveria ficar assim: “devido ao excesso de gás carbônico emitido e AO ruído de automóveis”. Marina devia ter inserido um artigo definido antes de “ruído”, já que também há um artigo definido antes de “excesso”. Competência 2: <span id='comp1' data-label='Competência 2'>200</span> – Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa. Referência a fato histórico (muito bom) Comentário: conforme já falamos, temos que analisar as coisas ruins e também as boas de um texto. Temos que imitar os bons exemplos e afastarmo-nos dos maus. E aqui a Marina arrebentou, lançou logo de cara um repertório sociocultural de qualidade: uma menção (adequada ao tema) à política de incentivo à indústria automobilística realizada por JK. Ótimo! Competência 3: <span id='comp1' data-label='Competência 3'>160</span> – Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. Releia o texto todo, com especial ênfase nos dois primeiros parágrafos Comentário: como os comentários dessa competência precisam levar em conta o texto como um todo, não vamos reproduzir nenhum trecho aqui. Vamos apenas citar alguns trechos. Na verdade a relação entre um trecho e outro. Preste atenção: na introdução, Marina havia citado “a ineficiência da gestão estatal” (6ª linha) como uma das causas do problema. No entanto, a questão específica da “ineficiência da gestão estatal” não é tratada com ênfase em nenhum momento do texto, nem no segundo parágrafo, que é o que mais se aproxima desse ponto. Veja bem, essa questão não é ignorada, há referência a ela no texto, porém apenas de resvalo. Dessa forma, Marina deixou de desenvolver um ponto importantíssimo do seu texto. Ao deixar esse furo, ela fez com que a coerência do seu texto ficasse levemente comprometida. Competência 4: <span id='comp1' data-label='Competência 4'>160</span> – Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. Inadequação semântica de conectivo Comentário: esse conector “com essa situação” não é adequado para esse contexto. Marina poderia ter usado “nessa situação” ou “dentro dessa situação”. O “com essa” ou dá sentido de companhia ou de causa, e essas duas noções não são adequadas para o contexto acima. Farto uso de conectivos Comentário: notou o bom uso que a Marina fez dos conectivos? Ela inicia o parágrafo e todos os períodos internos com um elemento conectivo: “desse modo”, “para isso”, “além disso”. Ela não só demonstrou um variado repertório de instrumentos de coesão, como também os usou dentro do sentido correto. Esse fenômeno ocorreu por todo o texto. Contudo, um ou outro problema tiraram das mãos de Marina os 200 pontos nessa competência. Vamos comentar, abaixo, a incorreção semântica que ela cometeu nesse mesmo parágrafo que você acabou de ler. Competência 5: <span id='comp1' data-label='Competência 5'>120</span> – Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos Faltaram alguns elementos na proposta de intervenção Esse foi o ponto fraco do texto da Marina. Sua proposta de redação, apesar de coerente com a discussão, só possui o AGENTE, a AÇÃO a ser realizada e a FINALIDADE/CONSEQUÊNCIA dessa ação. Eram necessárias mais coisas para ela chegar aos 200 pontos. NOTA FINAL: <span id='notaFinal'>800</span>" }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Tema: A ciência na era da pós-verdade Redação: É notório o aumento da discussão acerca da influência da ciência na era da pós-verdade. Devido a à existência de diversos grupos com pensamentos opostos, bem como o ao aumento da divulgação de informações a partir do advento da internet, há diversas teorias, consagradas no meio científico, sendo contestadas. Observando esse cenário, é possível perceber uma crescente divulgação de pensamentos divergentes de ideais antes tido tidos como dogmas. Alguns grupos tem têm apresentado versões diversas que trazem a à tona discussões acerca de algumas verdades historicamente construídas, tais como as que refutam a necessidade de vacinar as pessoas, evitando para evitar a proliferação de doenças. Quem se opõe, garante a não segurança opõe garante a insegurança da imunização, pois pode tornar os microrganismos responsáveis pelas doenças ainda mais resistentes. No entanto, de acordo com dados da Organização Mundial da Saúde, em 2017, quanto maior a cobertura da população com vacinações, menor é a chance do fortalecimento dos vírus e bactérias no ambiente. Além disso, é importante destacar o papel das redes sociais e outros meios de comunicação virtual na divulgação de dados nem sempre com respaldo científico. Essa ampliação maciça de notícias traz dúvidas pelo excesso de informações às pessoas, que não conseguem formar sua opinião a respeito dos fatos a partir de fontes imparciais. Logo, é importante que o governo amplie a divulgação, através de fontes oficiais, de dados e informações verídicas a respeito, sobretudo sobretudo, de temas importantes, como questões relacionadas à saúde pública, definindo a partir de evidências e comprovações científicas o que é verdade, evitando a disseminação de notícias que possam diminuir a segurança de todos." }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "<span id='comentariosGerais'>A redação apresenta uma abordagem mediana do tema, com uma estrutura esquemática e linguagem pouco clara. O autor demonstra dificuldade em expressar suas ideias com precisão e em aprofundar a análise da problemática. A argumentação é superficial e a proposta de intervenção é genérica, carecendo de maior detalhamento e especificidade. </span> <span id='comentariosComp1'>A redação apresenta problemas de domínio da modalidade escrita formal da Língua Portuguesa. A linguagem utilizada é pouco clara e objetiva, com termos e expressões ambíguos que dificultam a compreensão do texto. </span> <span id='comentariosComp2'>A redação demonstra compreensão da proposta de redação e utiliza conceitos relevantes para o desenvolvimento do tema. No entanto, a abordagem é superficial e a argumentação carece de aprofundamento, limitando-se a uma análise esquemática. </span> <span id='comentariosComp3'>A redação demonstra capacidade de selecionar, relacionar, organizar e interpretar informações, fatos e opiniões. No entanto, a argumentação é superficial e carece de desenvolvimento, com a utilização de argumentos pouco elaborados. A falta de aprofundamento na análise da problemática prejudica a obtenção da pontuação máxima. </span> <span id='comentariosComp4'>A redação demonstra conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. No entanto, a argumentação é superficial e carece de desenvolvimento, com a utilização de argumentos pouco elaborados. A falta de aprofundamento na análise da problemática prejudica a obtenção da pontuação máxima. </span> <span id='comentariosComp5'>A redação apresenta proposta de intervenção para o problema abordado. No entanto, a proposta é genérica e carece de maior detalhamento, com a definição precisa de ações, agentes e meios para sua implementação. A ideia de colocar o governo como fonte de informação com credibilidade sobre a ciência é pouco específica e poderia ser melhor desenvolvida.</span> <span id='comp1' data-label='Competência 1'>120</span> <span id='comp2' data-label='Competência 2'>120</span> <span id='comp3' data-label='Competência 3'>120</span> <span id='comp4' data-label='Competência 4'>120</span> <span id='comp5' data-label='Competência 5'>80</span> <span id='notaFinal'>560</span>" }],
+        // parts: [{ text: "Competência 1: <span id='comp1' data-label='Competência 1'>160</span> – Demonstrar domínio da modalidade escrita formal da Língua Portuguesa. Não pretendemos aqui esgotar todas as questões gramaticais do texto da Marina. Selecionamos apenas algumas que julgamos representativas. Uso do artigo “o” em “o modelo” Comentário: seria melhor Marina ter usado o artigo indefinido aqui: “um modelo de transporte”, já que esse modelo ainda não é conhecido no texto, tanto que ela o apresenta posteriormente. Inadequação semântica: rodoviarismo x rodoviário Comentário: houve uma inadequação semântica. O modelo de transporte é o rodoviário. A autora devia ter usado o termo “rodoviário”. Rodoviarismo seria outra coisa, seria a política de ênfase nesse modelo rodoviário. Falta de paralelismo sintático Comentário: pelas normas do paralelismo sintático, o trecho deveria ficar assim: “devido ao excesso de gás carbônico emitido e AO ruído de automóveis”. Marina devia ter inserido um artigo definido antes de “ruído”, já que também há um artigo definido antes de “excesso”. Competência 2: <span id='comp1' data-label='Competência 2'>200</span> – Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa. Referência a fato histórico (muito bom) Comentário: conforme já falamos, temos que analisar as coisas ruins e também as boas de um texto. Temos que imitar os bons exemplos e afastarmo-nos dos maus. E aqui a Marina arrebentou, lançou logo de cara um repertório sociocultural de qualidade: uma menção (adequada ao tema) à política de incentivo à indústria automobilística realizada por JK. Ótimo! Competência 3: <span id='comp1' data-label='Competência 3'>160</span> – Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. Releia o texto todo, com especial ênfase nos dois primeiros parágrafos Comentário: como os comentários dessa competência precisam levar em conta o texto como um todo, não vamos reproduzir nenhum trecho aqui. Vamos apenas citar alguns trechos. Na verdade a relação entre um trecho e outro. Preste atenção: na introdução, Marina havia citado “a ineficiência da gestão estatal” (6ª linha) como uma das causas do problema. No entanto, a questão específica da “ineficiência da gestão estatal” não é tratada com ênfase em nenhum momento do texto, nem no segundo parágrafo, que é o que mais se aproxima desse ponto. Veja bem, essa questão não é ignorada, há referência a ela no texto, porém apenas de resvalo. Dessa forma, Marina deixou de desenvolver um ponto importantíssimo do seu texto. Ao deixar esse furo, ela fez com que a coerência do seu texto ficasse levemente comprometida. Competência 4: <span id='comp1' data-label='Competência 4'>160</span> – Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. Inadequação semântica de conectivo Comentário: esse conector “com essa situação” não é adequado para esse contexto. Marina poderia ter usado “nessa situação” ou “dentro dessa situação”. O “com essa” ou dá sentido de companhia ou de causa, e essas duas noções não são adequadas para o contexto acima. Farto uso de conectivos Comentário: notou o bom uso que a Marina fez dos conectivos? Ela inicia o parágrafo e todos os períodos internos com um elemento conectivo: “desse modo”, “para isso”, “além disso”. Ela não só demonstrou um variado repertório de instrumentos de coesão, como também os usou dentro do sentido correto. Esse fenômeno ocorreu por todo o texto. Contudo, um ou outro problema tiraram das mãos de Marina os 200 pontos nessa competência. Vamos comentar, abaixo, a incorreção semântica que ela cometeu nesse mesmo parágrafo que você acabou de ler. Competência 5: <span id='comp1' data-label='Competência 5'>120</span> – Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos Faltaram alguns elementos na proposta de intervenção Esse foi o ponto fraco do texto da Marina. Sua proposta de redação, apesar de coerente com a discussão, só possui o AGENTE, a AÇÃO a ser realizada e a FINALIDADE/CONSEQUÊNCIA dessa ação. Eram necessárias mais coisas para ela chegar aos 200 pontos. NOTA FINAL: <span id='notaFinal'>800</span>" }],
+      },
+      {
+        role: "user",
+        parts: [{ text: "Ok, agora vou te dar minha redação e com base em tudo que você aprendeu, analise a minha redação." }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Ok, pode mandar sua redação que irei corrigi-la com precisão" }],
+        // parts: [{ text: "Competência 1: <span id='comp1' data-label='Competência 1'>160</span> – Demonstrar domínio da modalidade escrita formal da Língua Portuguesa. Não pretendemos aqui esgotar todas as questões gramaticais do texto da Marina. Selecionamos apenas algumas que julgamos representativas. Uso do artigo “o” em “o modelo” Comentário: seria melhor Marina ter usado o artigo indefinido aqui: “um modelo de transporte”, já que esse modelo ainda não é conhecido no texto, tanto que ela o apresenta posteriormente. Inadequação semântica: rodoviarismo x rodoviário Comentário: houve uma inadequação semântica. O modelo de transporte é o rodoviário. A autora devia ter usado o termo “rodoviário”. Rodoviarismo seria outra coisa, seria a política de ênfase nesse modelo rodoviário. Falta de paralelismo sintático Comentário: pelas normas do paralelismo sintático, o trecho deveria ficar assim: “devido ao excesso de gás carbônico emitido e AO ruído de automóveis”. Marina devia ter inserido um artigo definido antes de “ruído”, já que também há um artigo definido antes de “excesso”. Competência 2: <span id='comp1' data-label='Competência 2'>200</span> – Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa. Referência a fato histórico (muito bom) Comentário: conforme já falamos, temos que analisar as coisas ruins e também as boas de um texto. Temos que imitar os bons exemplos e afastarmo-nos dos maus. E aqui a Marina arrebentou, lançou logo de cara um repertório sociocultural de qualidade: uma menção (adequada ao tema) à política de incentivo à indústria automobilística realizada por JK. Ótimo! Competência 3: <span id='comp1' data-label='Competência 3'>160</span> – Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista. Releia o texto todo, com especial ênfase nos dois primeiros parágrafos Comentário: como os comentários dessa competência precisam levar em conta o texto como um todo, não vamos reproduzir nenhum trecho aqui. Vamos apenas citar alguns trechos. Na verdade a relação entre um trecho e outro. Preste atenção: na introdução, Marina havia citado “a ineficiência da gestão estatal” (6ª linha) como uma das causas do problema. No entanto, a questão específica da “ineficiência da gestão estatal” não é tratada com ênfase em nenhum momento do texto, nem no segundo parágrafo, que é o que mais se aproxima desse ponto. Veja bem, essa questão não é ignorada, há referência a ela no texto, porém apenas de resvalo. Dessa forma, Marina deixou de desenvolver um ponto importantíssimo do seu texto. Ao deixar esse furo, ela fez com que a coerência do seu texto ficasse levemente comprometida. Competência 4: <span id='comp1' data-label='Competência 4'>160</span> – Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação. Inadequação semântica de conectivo Comentário: esse conector “com essa situação” não é adequado para esse contexto. Marina poderia ter usado “nessa situação” ou “dentro dessa situação”. O “com essa” ou dá sentido de companhia ou de causa, e essas duas noções não são adequadas para o contexto acima. Farto uso de conectivos Comentário: notou o bom uso que a Marina fez dos conectivos? Ela inicia o parágrafo e todos os períodos internos com um elemento conectivo: “desse modo”, “para isso”, “além disso”. Ela não só demonstrou um variado repertório de instrumentos de coesão, como também os usou dentro do sentido correto. Esse fenômeno ocorreu por todo o texto. Contudo, um ou outro problema tiraram das mãos de Marina os 200 pontos nessa competência. Vamos comentar, abaixo, a incorreção semântica que ela cometeu nesse mesmo parágrafo que você acabou de ler. Competência 5: <span id='comp1' data-label='Competência 5'>120</span> – Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos Faltaram alguns elementos na proposta de intervenção Esse foi o ponto fraco do texto da Marina. Sua proposta de redação, apesar de coerente com a discussão, só possui o AGENTE, a AÇÃO a ser realizada e a FINALIDADE/CONSEQUÊNCIA dessa ação. Eram necessárias mais coisas para ela chegar aos 200 pontos. NOTA FINAL: <span id='notaFinal'>800</span>" }],
+      },
+    ],
+    generationConfig: {
+      maxOutputTokens: 100000,
+    },
+  });
+
+
+
+  //  const result = await model.generateContent(prompt);
+  
+   const history = await chat.getHistory();
+   const msgContent = { role: "user", parts: [{ text: "Tema: " + tema + " Redação: " + prompt }] };
+   const contents = [...history, msgContent];
+   const { totalTokens } = await model.countTokens({ contents });
+
+   const result = await chat.sendMessage(prompt);
+   const response = await result.response;
+   const text = response.text();
+
+   // Remover a mensagem "Gerando resposta..."
+  resultSpace.removeChild(loadingDiv);
+
+
+  //  const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+  const formattedText = text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') 
+    .replace(/\*/g, '<br>'); 
+
+  //  resultSpace.innerHTML = `<p style="color: #fff;">${text}</p>`
+
+
+    // Criar a div para o texto do usuário
+    const userDiv = document.createElement('div');
+
+    userDiv.id = "userPrompt"
+  userDiv.innerHTML = `<h3 style="color: #fff;">${tema}</h3>\n<p style="color: #fff;">${prompt}</p>`; // Estilo para o texto do usuário
+    // Adicionar a div do usuário ao chat-history
+  resultSpace.appendChild(userDiv);
+
+
+
+  // Criar a div para a mensagem "Gerando resposta..."
+  // const loadingDiv = document.createElement('div');
+  // loadingDiv.classList.add('chat-message', 'bot-message');
+  // loadingDiv.innerHTML = `<p>Gerando resposta...</p>`;
+  // resultSpace.appendChild(loadingDiv);                      
+  
+
+  
+
+    // Criar a div para o texto do chatbot
+   const chatbotDiv = document.createElement('div');
+  //  chatbotDiv.style.backgroundColor = "#92cf6e"
+   chatbotDiv.id = "botResponse"
+  //  chatbotDiv.innerHTML = `<p style="color: #fff;">${text}</p>`;
+  chatbotDiv.innerHTML = `<p style="color: #fff;">${formattedText}</p>`;
+
+   // Adicionar a div ao chat-history
+   resultSpace.appendChild(chatbotDiv);
+
+
+   var botaoAbrir = document.getElementById("abrir")
+   botaoAbrir.style.display = "block"
+
+   var areaSobre = document.getElementById("areaSobre")
+   areaSobre.style.display = "block"
+  
+
+     // Limpar o input
+  //  input.value = ""; 
+
+  //  ScrollReveal().reveal('#botResponse', { delay: 1000 }, { distance: "200px" }, { duration: 2000 });
+  //  ScrollReveal().reveal('#userPrompt', { delay: 100 }, { distance: "200px" }, { duration: 2000 });
+
+  // document.getElementById("confirmPrompt").disabled = false; 
+
+  const notaVal = document.getElementById("notaVal")
+  const nota = document.getElementById("notaFinal").innerText
+  const comentariosGeraisVal = document.getElementById("comentariosGeraisVal")
+  const comentariosGerais = document.getElementById("comentariosGerais").innerText
+
+  // const comp1 = document.getElementById("comp1").innerText
+  // const comp2 = document.getElementById("comp2").innerText
+  // const comp3 = document.getElementById("comp3").innerText
+  // const comp4 = document.getElementById("comp4").innerText
+  // const comp5 = document.getElementById("comp5").innerText
+
+    notaVal.innerHTML = `NOTA: ${nota}`
+    comentariosGeraisVal.innerHTML = `Comentários Gerais: ${comentariosGerais}`
+
+
+
+//     document.addEventListener("DOMContentLoaded", function() {
+//     // Função para obter valores dos spans
+//     function getValue(id) {
+//         return parseInt(document.getElementById(id).textContent);
+//     }
+
+//     // Função para obter labels dos spans
+//     function getLabel(id) {
+//         return document.getElementById(id).getAttribute('data-label');
+//     }
+
+//     // Função para determinar a cor com base no valor
+//     function getColor(value) {
+//         if (value < 100) {
+//             return '#FF6B6B'; // vermelho
+//         } else if (value < 160) {
+//             return '#FFD93D'; // amarelo
+//         } else {
+//             return '#7CFCAC'; // verde
+//         }
+//     }
+
+//     // Obtendo valores e labels dos spans
+//     const values = [
+//         getValue('comp1'),
+//         getValue('comp2'),
+//         getValue('comp3'),
+//         getValue('comp4'),
+//         getValue('comp5')
+//     ];
+
+//     const labels = [
+//         getLabel('comp1'),
+//         getLabel('comp2'),
+//         getLabel('comp3'),
+//         getLabel('comp4'),
+//         getLabel('comp5')
+//     ];
+
+//     const colors = values.map(getColor);
+
+//     const ctx = document.getElementById('myChart').getContext('2d');
+//     const data = {
+//         labels: labels,
+//         datasets: [{
+//             data: values,
+//             backgroundColor: colors,
+//             hoverBackgroundColor: colors.map(color => color), // manter a cor no hover
+//             borderWidth: 1
+//         }]
+//     };
+
+//     const myChart = new Chart(ctx, {
+//         type: 'doughnut',
+//         data: data,
+//         options: {
+//             responsive: true,
+//             plugins: {
+//                 legend: {
+//                     display: false
+//                 }
+//             },
+//             cutout: '50%'
+//         }
+//     });
+
+//     const legendContainer = document.getElementById('chartLegend');
+//     data.labels.forEach((label, index) => {
+//         const legendItem = document.createElement('li');
+//         const colorBox = document.createElement('span');
+//         colorBox.style.backgroundColor = data.datasets[0].backgroundColor[index];
+//         legendItem.appendChild(colorBox);
+//         legendItem.appendChild(document.createTextNode(`${label} - ${data.datasets[0].data[index]}`));
+//         legendContainer.appendChild(legendItem);
+//     });
+// });
+
+
+
+
+function getValue(id) {
+     return parseInt(document.getElementById(id).innerText);
+ }
+
+    // Função para determinar a cor com base no valor
+    function getColor(value) {
+        if (value < 100) {
+            return '#FF6B6B'; // vermelho
+        } else if (value < 180) {
+            return '#FFD93D'; // amarelo
+        } else {
+            return '#7CFCAC'; // verde
+        }
+    }
+
+ // Obtendo valores dos spans
+ const values = [
+     getValue('comp1'),
+     getValue('comp2'),
+     getValue('comp3'),
+     getValue('comp4'),
+     getValue('comp5')
+ ];
+
+ // Determinando as cores baseadas nos valores
+ const colors = values.map(getColor);
+
+var modal = document.getElementById("comentariosComps");
+var modalCompNome = document.getElementById("modalCompNome").innerHTML;
+var modalCompNota = document.getElementById("modalCompNota").innerHTML;
+var modalCompSobre = document.getElementById("modalCompSobre").innerHTML;
+
+const comentariosComp1 = document.getElementById("comentariosComp1").innerText
+const comentariosComp2 = document.getElementById("comentariosComp2").innerText
+const comentariosComp3 = document.getElementById("comentariosComp3").innerText
+const comentariosComp4 = document.getElementById("comentariosComp4").innerText
+const comentariosComp5 = document.getElementById("comentariosComp5").innerText
+
+
+const comp1zero = document.getElementById("comp1zero")
+const comp2zero = document.getElementById("comp2zero")
+const comp3zero = document.getElementById("comp3zero")
+const comp4zero = document.getElementById("comp4zero")
+const comp5zero = document.getElementById("comp5zero")
+
+if (document.getElementById("comp1").innerText == "0") {
+  comp1zero.style.display = "block"
+}
+if (document.getElementById("comp2").innerText == "0") {
+  comp2zero.style.display = "block"
+}
+if (document.getElementById("comp3").innerText == "0") {
+  comp3zero.style.display = "block"
+}
+if (document.getElementById("comp4").innerText == "0") {
+  comp4zero.style.display = "block"
+}
+if (document.getElementById("comp5").innerText == "0") {
+  comp5zero.style.display = "block"
+}
+
+
+comp1zero.addEventListener('click', clicar1zero)
+comp2zero.addEventListener('click', clicar2zero)
+comp3zero.addEventListener('click', clicar3zero)
+comp4zero.addEventListener('click', clicar4zero)
+comp5zero.addEventListener('click', clicar5zero)
+
+function clicar1zero() {
+    var nota = document.getElementById("comp1").innerText
+    // Atualizando o modal
+    document.getElementById('modalCompNome').innerText = "Competência 1 - Demonstrar domínio da modalidade escrita formal da língua portuguesa.";
+    document.getElementById('modalCompNota').innerText = `Nota: ${nota}`;
+    document.getElementById('modalCompSobre').innerText = `Comentários da Competência: ${comentariosComp1}`;
+    // Abrindo o modal
+    const modal = document.getElementById('comentariosComps');
+    modal.style.display = "block";
+  }
+  
+  function clicar2zero() {
+    var nota = document.getElementById("comp2").innerText
+    // Atualizando o modal
+    document.getElementById('modalCompNome').innerText = "Competência 2 - Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa.";
+    document.getElementById('modalCompNota').innerText = `Nota: ${nota}`;
+    document.getElementById('modalCompSobre').innerText = `Comentários da Competência: ${comentariosComp2}`;
+    // Abrindo o modal
+    const modal = document.getElementById('comentariosComps');
+    modal.style.display = "block";
+  }
+  
+  function clicar3zero() {
+    var nota = document.getElementById("comp3").innerText
+    // Atualizando o modal
+    document.getElementById('modalCompNome').innerText = "Competência 3 - Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista.";
+    document.getElementById('modalCompNota').innerText = `Nota: ${nota}`;
+    document.getElementById('modalCompSobre').innerText = `Comentários da Competência: ${comentariosComp3}`;
+    // Abrindo o modal
+    const modal = document.getElementById('comentariosComps');
+    modal.style.display = "block";
+  }
+  
+  function clicar4zero() {
+    var nota = document.getElementById("comp4").innerText
+    // Atualizando o modal
+    document.getElementById('modalCompNome').innerText = "Competência 4 - Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação.";
+    document.getElementById('modalCompNota').innerText = `Nota: ${nota}`;
+    document.getElementById('modalCompSobre').innerText = `Comentários da Competência: ${comentariosComp4}`;
+    // Abrindo o modal
+    const modal = document.getElementById('comentariosComps');
+    modal.style.display = "block";
+  }
+  
+  function clicar5zero() {
+    var nota = document.getElementById("comp5").innerText
+    // Atualizando o modal
+    document.getElementById('modalCompNome').innerText = "Competência 5 - Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos.";
+    document.getElementById('modalCompNota').innerText = `Nota: ${nota}`;
+    document.getElementById('modalCompSobre').innerText = `Comentários da Competência: ${comentariosComp5}`;
+    // Abrindo o modal
+    const modal = document.getElementById('comentariosComps');
+    modal.style.display = "block";
+  }
+
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+ const ctx = document.getElementById('myChart').getContext('2d');
+ document.getElementById('myChart').style.cursor = "pointer"
+ const data = {
+     labels: ['Competência 1', 'Competência 2', 'Competência 3', 'Competência 4', 'Competência 5'],
+     datasets: [{
+         data: values,
+         backgroundColor: colors,
+         hoverBackgroundColor: colors.map(color => color), // manter a cor no hover
+         borderWidth: 1
+     }]
+ };
+ const myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            cutout: '50%',
+            onClick: (e, elements) => {
+                if (elements.length > 0) {
+                    const elementIndex = elements[0].index;
+                    var label = data.labels[elementIndex];
+                    const value = data.datasets[0].data[elementIndex];
+                    const compNumber = "comentariosComp" + parseInt(elementIndex + 1); // assumindo que comp1 corresponde ao índice 0
+                    const compNumberV = document.getElementById(compNumber).innerText;
+
+                    if (label == "Competência 1") {
+                      label = "Competência 1 - Demonstrar domínio da modalidade escrita formal da língua portuguesa."
+                    } else if (label == "Competência 2") {
+                      label = "Competência 2 - Compreender a proposta de redação e aplicar conceitos das várias áreas de conhecimento para desenvolver o tema, dentro dos limites estruturais do texto dissertativo-argumentativo em prosa."
+                    } else if (label == "Competência 3") {
+                      label = "Competência 3 - Selecionar, relacionar, organizar e interpretar informações, fatos, opiniões e argumentos em defesa de um ponto de vista."
+                    } else if (label == "Competência 4") {
+                      label = "Competência 4 - Demonstrar conhecimento dos mecanismos linguísticos necessários para a construção da argumentação."
+                    } else {
+                      label = "Competência 5 - Elaborar proposta de intervenção para o problema abordado, respeitando os direitos humanos."
+                    }
+
+                    // Atualizando o modal
+                    document.getElementById('modalCompNome').innerText = `Competência: ${label}`;
+                    document.getElementById('modalCompNota').innerText = `Nota: ${value}`;
+                    document.getElementById('modalCompSobre').innerText = `Comentários da Competência: ${compNumberV}`;
+
+                    // Abrindo o modal
+                    const modal = document.getElementById('comentariosComps');
+                    modal.style.display = "block";
+                }
+            }
+        }
+    });
+//  const legendContainer = document.getElementById('chartLegend');
+//  data.labels.forEach((label, index) => {
+//      const legendItem = document.createElement('li');
+//      const colorBox = document.createElement('span');
+//      colorBox.style.backgroundColor = data.datasets[0].backgroundColor[index];
+//      legendItem.appendChild(colorBox);
+//      legendItem.appendChild(document.createTextNode(`${label} - ${data.datasets[0].data[index]}%`));
+//      legendContainer.appendChild(legendItem);
+//  });
+
+
+
+
+
+
+
+
+   }
+   
+  //  let loadingExist = document.getElementById("loadingDiv")
+
+  //  if(loadingExist === null) {
+  //   input.addEventListener('keyup', function(event) {
+  //     if (event.key === 'Enter') {
+  //       clicar()
+  //     }
+  //   });
+  //  } else {
+
+  //  }
+
+
+
+    
+
+ 
+
+  
+  
+
+  // ...
+</script> 
+
+    </body>
+
+    
+
+ </html>
