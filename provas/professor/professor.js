@@ -221,14 +221,16 @@ function processarProvaGerada(provaGerada) {
 }
 
 // Função para salvar a prova no Firebase
-async function salvarProva(dadosProva, questoes) {
+async function salvarProva(dadosProva) {
   try {
+    const resposta = document.getElementById("provaMesmo").innerHTML
     // Obter tempoLimite em milissegundos (ou null para infinito)
     const tempoLimiteMs = dadosProva.tempoInfinito 
       ? null 
       : dadosProva.tempoLimiteHoras * 60 * 60 * 1000; 
 
     await db.collection("provas").add({
+      conteudoProva: resposta,
       titulo: dadosProva.titulo,
       descricao: dadosProva.descricao,
       areasConhecimento: dadosProva.areasConhecimento,
@@ -285,10 +287,10 @@ criarProvaForm.addEventListener('submit', async (event) => {
     tempoLimiteHoras: document.getElementById('tempoLimiteHoras').value,
     tempoInfinito: document.getElementById('tempoInfinito').checked,
     dataDisponivel: document.getElementById('dataDisponivel').value,
-    valorLinguagens: document.getElementById("Linguagens").value,
-    valorNatureza: document.getElementById("Ciencias da Natureza").value,
-    valorMatematica: document.getElementById("Matematica").value,
-    valorHumanas: document.getElementById("Ciencias Humanas").value
+    valorLinguagens: document.getElementById("Linguagens") ? document.getElementById("Linguagens").value : 0, 
+    valorNatureza: document.getElementById("Ciencias da Natureza") ? document.getElementById("Ciencias da Natureza").value : 0,
+    valorMatematica: document.getElementById("Matematica") ? document.getElementById("Matematica").value : 0,
+    valorHumanas: document.getElementById("Ciencias Humanas") ? document.getElementById("Ciencias Humanas").value : 0
     // if(qtdLinguagens) {
     //   valorLinguagens: qtdLinguagens.value
     // },
@@ -312,7 +314,5 @@ criarProvaForm.addEventListener('submit', async (event) => {
   const questoesGeradas = await gerarProva(dadosProva);
 
   // Salvar a prova no Firebase
-
-
-  // salvarProva(dadosProva, questoesGeradas);
+  salvarProva(dadosProva, questoesGeradas);
 });
