@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Prova ENEM</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1 id="provaTitulo"></h1>
+  <p id="provaDescricao"></p>
+
+  <div id="questoesContainer">
+      <h2>Prova</h2>
+      <div id="questao1">
+        <h2 id="tituloQuestao1" class="tituloQuestao">Questão 1:</h2>
+        <p id="enunciadoQuestao1">Escolha a alternativa correta:</p>
+        <div id="respostasQuestao1" class="respostasQuestao">
+          <label for="respostaA1" class="form-control">
+            <input type="radio" id="respostaA" class="correct" name="questao1" value="a">
+            <p>A) Opção 1</p>
+          </label>
+          <br>
+          <label for="respostaB1" class="form-control">
+              <input type="radio" id="respostaB" name="questao1" value="b">
+              <p>B) Opção 2</p>
+          </label>
+          <br>
+          <label for="respostaC1" class="form-control">
+              <input type="radio" id="respostaC" name="questao1" value="c">
+              <p>C) Opção 3</p>
+          </label>
+          <br>
+          <label for="respostaD1" class="form-control">
+              <input type="radio" id="respostaD" name="questao1" value="d">
+              <p>D) Opção 4</p>
+          </label>
+          <br>
+          <label for="respostaE1" class="form-control">
+              <input type="radio" id="respostaD" name="questao1" value="e">
+              <p>E) Opção 5</p>
+          </label>
+        </div>
+      </div>
+
+      <div id="questao2">
+        <h2 id="tituloQuestao2" class="tituloQuestao">Questão 2:</h2>
+        <p id="enunciadoQuestao2">Escolha a alternativa correta:</p>
+        <div id="respostasQuestao2" class="respostasQuestao">
+          <label for="respostaA2" class="form-control">
+            <input type="radio" id="respostaA" name="questao2" value="a">
+            <p>A) Opção 1</p>
+          </label>
+          <br>
+          <label for="respostaB2" class="form-control">
+              <input type="radio" id="respostaB" name="questao2" value="b">
+              <p>B) Opção 2</p>
+          </label>
+          <br>
+          <label for="respostaC2" class="form-control">
+              <input type="radio" class="correct" id="respostaC" name="questao2" value="c">
+              <p>C) Opção 3</p>
+          </label>
+          <br>
+          <label for="respostaD2" class="form-control">
+              <input type="radio" id="respostaD" name="questao2" value="d">
+              <p>D) Opção 4</p>
+          </label>
+          <br>
+          <label for="respostaE2" class="form-control">
+              <input type="radio" id="respostaD" name="questao2" value="e">
+              <p>E) Opção 5</p>
+          </label>
+        </div>
+      </div>
+  </div>
+
+  <button id="enviarProvaBtn">Enviar Prova</button> 
+
+  <div id="temporizador"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  <script src="prova.js" type="module"></script>
+</body>
+</html>
