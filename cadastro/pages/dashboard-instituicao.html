@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/3da44e21a2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+</head>
+<body>
+  <p style="display: none;" id="userIdHtml"></p>
+  <div class="app-container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="app-icon">
+          <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M507.606 371.054a187.217 187.217 0 00-23.051-19.606c-17.316 19.999-37.648 36.808-60.572 50.041-35.508 20.505-75.893 31.452-116.875 31.711 21.762 8.776 45.224 13.38 69.396 13.38 49.524 0 96.084-19.286 131.103-54.305a15 15 0 004.394-10.606 15.028 15.028 0 00-4.395-10.615zM27.445 351.448a187.392 187.392 0 00-23.051 19.606C1.581 373.868 0 377.691 0 381.669s1.581 7.793 4.394 10.606c35.019 35.019 81.579 54.305 131.103 54.305 24.172 0 47.634-4.604 69.396-13.38-40.985-.259-81.367-11.206-116.879-31.713-22.922-13.231-43.254-30.04-60.569-50.039zM103.015 375.508c24.937 14.4 53.928 24.056 84.837 26.854-53.409-29.561-82.274-70.602-95.861-94.135-14.942-25.878-25.041-53.917-30.063-83.421-14.921.64-29.775 2.868-44.227 6.709-6.6 1.576-11.507 7.517-11.507 14.599 0 1.312.172 2.618.512 3.885 15.32 57.142 52.726 100.35 96.309 125.509zM324.148 402.362c30.908-2.799 59.9-12.454 84.837-26.854 43.583-25.159 80.989-68.367 96.31-125.508.34-1.267.512-2.573.512-3.885 0-7.082-4.907-13.023-11.507-14.599-14.452-3.841-29.306-6.07-44.227-6.709-5.022 29.504-15.121 57.543-30.063 83.421-13.588 23.533-42.419 64.554-95.862 94.134zM187.301 366.948c-15.157-24.483-38.696-71.48-38.696-135.903 0-32.646 6.043-64.401 17.945-94.529-16.394-9.351-33.972-16.623-52.273-21.525-8.004-2.142-16.225 2.604-18.37 10.605-16.372 61.078-4.825 121.063 22.064 167.631 16.325 28.275 39.769 54.111 69.33 73.721zM324.684 366.957c29.568-19.611 53.017-45.451 69.344-73.73 26.889-46.569 38.436-106.553 22.064-167.631-2.145-8.001-10.366-12.748-18.37-10.605-18.304 4.902-35.883 12.176-52.279 21.529 11.9 30.126 17.943 61.88 17.943 94.525.001 64.478-23.58 111.488-38.702 135.912zM266.606 69.813c-2.813-2.813-6.637-4.394-10.615-4.394a15 15 0 00-10.606 4.394c-39.289 39.289-66.78 96.005-66.78 161.231 0 65.256 27.522 121.974 66.78 161.231 2.813 2.813 6.637 4.394 10.615 4.394s7.793-1.581 10.606-4.394c39.248-39.247 66.78-95.96 66.78-161.231.001-65.256-27.511-121.964-66.78-161.231z"/></svg>
+        </div>
+      </div>
+      <ul class="sidebar-list">
+        <li class="sidebar-list-item">
+          <a href="#">
+            <i class="fas fa-home me-2"></i>
+            <span>Home</span>
+          </a>
+        </li>
+        <li class="sidebar-list-item active" data-target="alunos">
+          <a href="#">
+            <i class="fas fa-user me-2"></i>
+            <span>Alunos</span>
+          </a>
+        </li>
+        <li class="sidebar-list-item" data-target="professores">
+          <a href="#">
+            <i class="fas fa-comments me-2"></i>
+              <span>Professores</span>
+          </a>
+        </li>
+        <li class="sidebar-list-item" data-target="turmas">
+          <a href="#">
+            <i class="fas fa-envelope me-2"></i>
+            <span>Turmas</span>
+          </a>
+        </li>
+        <li class="sidebar-list-item">
+          <a href="#">
+            <i class="fas fa-envelope me-2"></i>
+            <span>Caixa de Entrada</span>
+          </a>
+        </li>
+      </ul>
+      <div class="account-info">
+        <div class="account-info-picture">
+          <img src="https://static.vecteezy.com/system/resources/previews/014/300/061/non_2x/man-profile-glyph-icon-anonymous-photo-for-documents-illustration-vector.jpg" alt="Account">
+        </div>
+        <span id="nome-instituicao"></span>
+        <button class="account-info-more" id="account-info-more">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+        </button>
+        <div class="account-info-menu" id="account-info-menu">
+          <button id="logout-button" class="btn btn-danger btn-sm">Sair</button>
+        </div>
+      </div>
+    </div>
+    <div class="app-content">
+      <div class="app-content-header">
+        <h1 class="app-content-headerText" id="page-title">Alunos</h1>
+        <button class="app-content-headerButton" id="add-button" data-bs-toggle="modal" data-bs-target="#addModal">Adicionar aluno</button>
+      </div>
+      <div class="app-content-actions">
+        <input class="search-bar" placeholder="Pesquise..." type="text">
+        <div class="app-content-actions-wrapper">
+          <div class="filter-button-wrapper">
+            <button class="action-button filter jsFilter"><span>Filtrar</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-filter"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></button>
+            <div class="filter-menu">
+              <div class="filter-menu-buttons">
+                <button class="filter-button reset">
+                  Reset
+                </button>
+                <button class="filter-button apply">
+                  Apply
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="products-area-wrapper tableView" id="conteudo-principal">
+        <!-- Conteúdo da lista de alunos -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addModalLabel">Adicionar Aluno</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulário de Cadastro de Alunos -->
+<form id="addForm">
+  <div class="mb-3">
+      <label for="nomeAluno" class="form-label">Nome do Aluno</label>
+      <input type="text" class="form-control" id="nomeAluno" required>
+  </div>
+  <div class="mb-3">
+      <label for="serieAluno" class="form-label">Turma do Aluno</label>
+      <select class="form-select" id="serieAluno" required>
+      </select>
+  </div>
+  <div class="mb-3">
+      <label for="emailAluno" class="form-label">Email do Aluno</label>
+      <input type="text" class="form-control" id="emailAluno" disabled>
+  </div>
+  <input type="hidden" id="senhaAluno">
+  <button type="submit" class="btn btn-primary">Adicionar</button>
+</form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Modal Gerenciar Turma -->
+    <div class="modal fade" id="gerenciarTurmaModal" tabindex="-1" aria-labelledby="gerenciarTurmaModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="gerenciarTurmaModalLabel">Gerenciar Turma: <span id="nomeTurmaGerenciar"></span></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="professorTurmaSelect" class="form-label">Adicionar Professor:</label>
+              <select class="form-select" id="professorTurmaSelect">
+                <!-- Opções de professores serão carregadas aqui -->
+              </select>
+            </div>
+            <button class="btn btn-primary mb-3" id="adicionarProfessorBotao">Adicionar Professor à Turma</button>
+            <hr>
+            <h5 class="mb-3">Professores na Turma:</h5>
+            <ul id="listaProfessoresTurma">
+              <!-- Lista de professores da turma será carregada aqui -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  <div class="modal fade" id="addProfessorModal" tabindex="-1" aria-labelledby="addProfessorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addProfessorModalLabel">Adicionar Professor</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addProfessorForm">
+            <div class="mb-3">
+              <label for="nomeProfessor" class="form-label">Nome do Professor</label>
+              <input type="text" class="form-control" id="nomeProfessor" required>
+            </div>
+            <div class="mb-3">
+              <label for="disciplinaProfessor" class="form-label">Disciplina</label>
+              <input type="text" class="form-control" id="disciplinaProfessor" required>
+            </div>
+            <div class="mb-3">
+              <label for="emailProfessor" class="form-label">Email do Professor</label>
+              <input type="text" class="form-control" id="emailProfessor" disabled>
+            </div>
+            <input type="hidden" id="senhaAluno">
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="addTurmasModal" tabindex="-1" aria-labelledby="addTurmasModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addTurmasModalLabel">Adicionar Turma</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addTurmasForm">
+            <div class="mb-3">
+              <label for="nomeProfessor" class="form-label">Turma</label>
+              <input type="text" class="form-control" id="nomeTurma" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+
+  <!-- Scripts do Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+  <!-- Script Principal do Dashboard -->
+  <script type="module" defer>
+    // Firebase configuration
+    const firebaseConfig = {
+            apiKey: "AIzaSyAbzHqrxU1bfZlCe8LWtizy12-40zdUfDE",
+            authDomain: "teste-97fc6.firebaseapp.com",
+            projectId: "teste-97fc6",
+            storageBucket: "teste-97fc6.appspot.com",
+            messagingSenderId: "470428227917",
+            appId: "1:470428227917:web:ef9308034050ca366a3f04",
+            measurementId: "G-F50QJE3734"
+        };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const alunosContent = `
+  <div class="products-header">
+    <div class="product-cell image">
+      Alunos
+      <button class="sort-button">
+        <!-- Ícone de ordenação -->
+      </button>
+    </div>
+    <div class="product-cell category">Turma<button class="sort-button">
+        <!-- Ícone de ordenação -->
+      </button></div>
+    <div class="product-cell status-cell">Status<button class="sort-button">
+        <!-- Ícone de ordenação -->
+      </button></div>
+    <div class="product-cell senha-cell">Senha<button class="sort-button">
+        <!-- Ícone de ordenação -->
+      </button></div>
+  </div>
+`;
+
+const professoresContent = `
+  <div class="products-header">
+    <div class="product-cell image">
+      Professores
+      <button class="sort-button">
+        <!-- Ícone de ordenação -->
+      </button>
+    </div>
+    <div class="product-cell category">Disciplina<button class="sort-button">
+        <!-- Ícone de ordenação -->
+      </button></div>
+    <div class="product-cell status-cell">Status<button class="sort-button">
+        <!-- Ícone de ordenação -->
+      </button></div>
+    <div class="product-cell senha-cell">Senha<button class="sort-button">
+        <!-- Ícone de ordenação -->
+      </button></div>
+  </div>
+`;
+
+const turmasContent = `
+  <div class="products-header">
+    <div class="product-cell category">Turma<button class="sort-button">
+        <!-- Ícone de ordenação -->
+      </button></div>
+  </div>
+`;
+
+  const sidebarItems = document.querySelectorAll('.sidebar-list-item');
+  const pageTitle = document.getElementById('page-title');
+  const addButton = document.getElementById('add-button');
+  const conteudoPrincipal = document.getElementById('conteudo-principal');
+  const addAlunoModal = new bootstrap.Modal(document.getElementById('addModal'));
+  const addProfessorModal = new bootstrap.Modal(document.getElementById('addProfessorModal'));
+  const addTurmasModal = new bootstrap.Modal(document.getElementById('addTurmasModal'));
+  const addForm = document.getElementById('addForm');
+  const addProfessorForm = document.getElementById('addProfessorForm');
+  const addTurmasForm = document.getElementById('addTurmasForm');
+  const nomeAlunoInput = document.getElementById('nomeAluno');
+  const gerenciarTurmaModal = new bootstrap.Modal(document.getElementById('gerenciarTurmaModal'));
+    const nomeTurmaGerenciarSpan = document.getElementById('nomeTurmaGerenciar');
+    const professorTurmaSelect = document.getElementById('professorTurmaSelect');
+    const adicionarProfessorBotao = document.getElementById('adicionarProfessorBotao');
+    const listaProfessoresTurma = document.getElementById('listaProfessoresTurma');
+
+    let turmaIdSelecionada = null; // Variável global para armazenar o ID da turma sendo gerenciada
+  // const serieAlunoInput = document.getElementById('serieAluno');
+  const serieAlunoSelect = document.getElementById('serieAluno');
+  const emailAlunoInput = document.getElementById('emailAluno');
+  const nomeProfessorInput = document.getElementById('nomeProfessor');
+  const disciplinaProfessorInput = document.getElementById('disciplinaProfessor');
+  const emailProfessorInput = document.getElementById('emailProfessor');
+  const nomeTurmaInput = document.getElementById("nomeTurma")
+  let nomeInstituicao = '';
+  let currentUserId = '';
+
+  sidebarItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const target = item.dataset.target;
+
+      sidebarItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+
+      if (target === 'alunos') {
+        pageTitle.textContent = 'Alunos';
+        addButton.textContent = 'Adicionar aluno';
+        addButton.setAttribute('data-bs-target', '#addModal');
+        carregarAlunos();
+      } else if (target === 'professores') {
+        pageTitle.textContent = 'Professores';
+        addButton.textContent = 'Adicionar professor';
+        addButton.setAttribute('data-bs-target', '#addProfessorModal');
+        carregarProfessores();
+      } else if (target === 'turmas') {
+        pageTitle.textContent = 'Turmas';
+        addButton.textContent = 'Adicionar Turmas';
+        addButton.setAttribute('data-bs-target', '#addTurmasModal');
+        carregarTurmas();
+      }
+    });
+  });
+
+  async function carregarTurmasNoSelect() {
+    try {
+        const turmasSnapshot = await db
+            .collection('instituicoes')
+            .doc(currentUserId)
+            .collection('turmas')
+            .get();
+
+        serieAlunoSelect.innerHTML = ''; // Limpa as opções existentes
+
+        turmasSnapshot.forEach(doc => {
+            const turma = doc.data();
+            const option = document.createElement('option');
+            option.value = turma.turma; // Define o valor da opção como o nome da turma
+            option.text = turma.turma;  // Define o texto exibido na opção
+            serieAlunoSelect.appendChild(option);
+        });
+    } catch (error) {
+        console.error('Erro ao carregar turmas no select:', error);
+    }
+}
+
+  // Carregar nome da instituição no dashboard
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      currentUserId = user.uid;
+      carregarNomeInstituicao(user.uid);
+      carregarAlunos(); // Adicionado para carregar os alunos ao iniciar
+      carregarTurmasNoSelect();
+
+    } else {
+      window.location.href = '../pages/login-gerente.html'; // Redireciona para a página de login se não estiver autenticado
+    }
+  });
+
+  async function carregarNomeInstituicao(userId) {
+    try {
+      const doc = await db.collection('instituicoes').doc(userId).get();
+      if (doc.exists) {
+        const instituicaoData = doc.data();
+        nomeInstituicao = instituicaoData.nome;
+        document.getElementById('nome-instituicao').textContent = nomeInstituicao;
+      } else {
+        document.getElementById('nome-instituicao').textContent = 'Nome não encontrado';
+      }
+    } catch (error) {
+      console.error('Erro ao carregar nome da instituição:', error);
+      document.getElementById('nome-instituicao').textContent = 'Erro ao carregar nome';
+    }
+  }
+
+  nomeAlunoInput.addEventListener('input', function() {
+    const nomeAluno = nomeAlunoInput.value.toLowerCase().replace(/ /g, '.');
+    emailAlunoInput.value = `${nomeAluno}@${nomeInstituicao.toLowerCase()}aluno.com`;
+  });
+
+  nomeProfessorInput.addEventListener('input', function() {
+    const nomeProfessor = nomeProfessorInput.value.toLowerCase().replace(/ /g, '.');
+    emailProfessorInput.value = `${nomeProfessor}@${nomeInstituicao.toLowerCase()}professor.com`;
+  });
+
+  addForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const nomeAluno = nomeAlunoInput.value;
+    // const serieAluno = serieAlunoInput.value;
+    const serieAluno = serieAlunoSelect.value;
+    const emailAluno = emailAlunoInput.value;
+    const senhaAluno = generateRandomPassword(); // Gera uma senha de 8 caracteres
+
+    try {
+        await db.collection('instituicoes').doc(currentUserId).collection('alunos').add({
+            nome: nomeAluno,
+            serie: serieAluno,
+            email: emailAluno,
+            senha: senhaAluno, // Adiciona a senha ao documento
+            status: 'Feito'
+        });
+        addAlunoModal.hide();
+        addForm.reset(); // Resetar o formulário após adicionar
+        carregarAlunos();
+        alert(`Aluno adicionado com sucesso. Senha: ${senhaAluno}`);
+    } catch (error) {
+        console.error('Erro ao adicionar aluno:', error);
+        alert('Erro ao adicionar aluno');
+    }
+});
+
+
+addProfessorForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const nomeProfessor = nomeProfessorInput.value;
+    const disciplinaProfessor = disciplinaProfessorInput.value;
+    const emailProfessor = emailProfessorInput.value;
+    const senhaProfessor = generateRandomPassword(); // Gera uma senha de 8 caracteres
+
+
+    try {
+      const doc = await db.collection('instituicoes').doc(currentUserId).get();
+      if (doc.exists) {
+        const instituicaoData = doc.data();
+        nomeInstituicao = instituicaoData.nome;
+        document.getElementById('nome-instituicao').textContent = nomeInstituicao;
+      } else {
+        document.getElementById('nome-instituicao').textContent = 'Nome não encontrado';
+      }
+        await db.collection('instituicoes').doc(currentUserId).collection('professores').add({
+            nome: nomeProfessor,
+            disciplina: disciplinaProfessor,
+            email: emailProfessor,
+            senha: senhaProfessor, // Adiciona a senha ao documento
+            status: 'Ativo'
+        });
+        await db.collection('professores').add({
+            nome: nomeProfessor,
+            disciplina: disciplinaProfessor,
+            email: emailProfessor,
+            senha: senhaProfessor, // Adiciona a senha ao documento
+            instituicao: nomeInstituicao,
+        });
+        addProfessorModal.hide();
+        addProfessorForm.reset(); // Resetar o formulário após adicionar
+        carregarProfessores();
+        alert(`Professor adicionado com sucesso. Senha: ${senhaProfessor}`);
+    } catch (error) {
+        console.error('Erro ao adicionar professor:', error);
+        alert('Erro ao adicionar professor');
+    }
+});
+
+addTurmasForm.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const nomeTurma = nomeTurmaInput.value
+
+    try {
+        await db.collection('instituicoes').doc(currentUserId).collection('turmas').add({
+            turma: nomeTurma
+        });
+        addTurmasModal.hide();
+        addTurmasForm.reset(); // Resetar o formulário após adicionar
+        carregarTurmas();
+        alert(`Turma Adicionada`);
+        carregarTurmasNoSelect();
+    } catch (error) {
+        console.error('Erro ao adicionar turma:', error);
+        alert('Erro ao adicionar turma');
+    }
+});
+
+
+  function generateRandomPassword() {
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let password = "";
+    for (let i = 0; i < 8; i++) { // Limitar a 8 caracteres
+        const randomIndex = Math.floor(Math.random() * charset.length);
+        password += charset[randomIndex];
+    }
+    return password;
+}
+
+
+async function carregarAlunos() {
+    const alunosSnapshot = await db
+      .collection('instituicoes')
+      .doc(currentUserId)
+      .collection('alunos')
+      .get();
+    conteudoPrincipal.innerHTML = alunosContent;
+
+    alunosSnapshot.forEach(doc => {
+      const aluno = doc.data();
+      const alunoRow = `
+        <div class="products-row" data-aluno-id="${doc.id}">
+          <div class="product-cell image">
+            <img src="https://static.vecteezy.com/system/resources/previews/014/300/061/non_2x/man-profile-glyph-icon-anonymous-photo-for-documents-illustration-vector.jpg" alt="product">
+            <span>${aluno.nome}</span>
+          </div>
+          <div class="product-cell category">
+            <span class="cell-label">Turma:</span>
+            <span class="turma-display">${aluno.serie}</span>
+            <select class="turma-edit" style="display: none;">
+              <!-- Opções de turmas serão carregadas aqui -->
+            </select>
+            <button class="btn btn-sm btn-primary editar-turma-btn">Editar</button>
+            <button class="btn btn-sm btn-success salvar-turma-btn" style="display: none;">Salvar</button>
+          </div>
+          <div class="product-cell status-cell">
+            <span class="cell-label">Status:</span>
+            <span class="status active">${aluno.status}</span>
+          </div>
+          <div class="product-cell senha-cell">
+            <span class="cell-label">Senha:</span>${aluno.senha}</div>
+        </div>
+      `;
+      conteudoPrincipal.innerHTML += alunoRow;
+    });
+
+    // Adiciona eventos aos botões após carregar os alunos
+    adicionarEventosBotoesEditarTurma();
+  }
+
+  function adicionarEventosBotoesEditarTurma() {
+    const editarTurmaBtns = document.querySelectorAll('.editar-turma-btn');
+    editarTurmaBtns.forEach(btn => {
+      btn.addEventListener('click', (event) => {
+        const alunoRow = event.target.closest('.products-row');
+        const alunoId = alunoRow.dataset.alunoId;
+        abrirEdicaoTurma(alunoRow, alunoId);
+      });
+    });
+
+    const salvarTurmaBtns = document.querySelectorAll('.salvar-turma-btn');
+    salvarTurmaBtns.forEach(btn => {
+      btn.addEventListener('click', (event) => {
+        const alunoRow = event.target.closest('.products-row');
+        const alunoId = alunoRow.dataset.alunoId;
+        salvarEdicaoTurma(alunoRow, alunoId);
+      });
+    });
+  }
+
+  async function abrirEdicaoTurma(alunoRow, alunoId) {
+    // Esconde o texto da turma e o botão "Editar"
+    alunoRow.querySelector('.turma-display').style.display = 'none';
+    alunoRow.querySelector('.editar-turma-btn').style.display = 'none';
+
+    // Mostra o select de turmas e o botão "Salvar"
+    const turmaSelect = alunoRow.querySelector('.turma-edit');
+    turmaSelect.style.display = 'inline-block';
+    alunoRow.querySelector('.salvar-turma-btn').style.display = 'inline-block';
+
+    // Carrega as opções de turmas no select
+    await carregarTurmasNoSelect(turmaSelect);
+  }
+
+  async function carregarTurmasNoSelect(selectElement) {
+    try {
+      const turmasSnapshot = await db
+        .collection('instituicoes')
+        .doc(currentUserId)
+        .collection('turmas')
+        .get();
+
+      selectElement.innerHTML = ''; // Limpa as opções existentes
+
+      turmasSnapshot.forEach(doc => {
+        const turma = doc.data();
+        const option = document.createElement('option');
+        option.value = turma.turma;
+        option.text = turma.turma;
+        selectElement.appendChild(option);
+      });
+    } catch (error) {
+      console.error('Erro ao carregar turmas no select:', error);
+    }
+  }
+
+  async function salvarEdicaoTurma(alunoRow, alunoId) {
+    const novaTurma = alunoRow.querySelector('.turma-edit').value;
+
+    try {
+      await db
+        .collection('instituicoes')
+        .doc(currentUserId)
+        .collection('alunos')
+        .doc(alunoId)
+        .update({ serie: novaTurma });
+
+      // Atualiza a exibição da turma
+      alunoRow.querySelector('.turma-display').textContent = novaTurma;
+
+      // Volta para o modo de exibição
+      alunoRow.querySelector('.turma-display').style.display = 'inline-block';
+      alunoRow.querySelector('.editar-turma-btn').style.display = 'inline-block';
+      alunoRow.querySelector('.turma-edit').style.display = 'none';
+      alunoRow.querySelector('.salvar-turma-btn').style.display = 'none';
+
+      console.log('Turma do aluno atualizada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao atualizar a turma do aluno:', error);
+    }
+  }
+
+async function carregarProfessores() {
+    const professoresSnapshot = await db.collection('instituicoes').doc(currentUserId).collection('professores').get();
+    conteudoPrincipal.innerHTML = professoresContent;
+    professoresSnapshot.forEach(doc => {
+        const professor = doc.data();
+        const professorRow = `
+          <div class="products-row">
+            <button class="cell-more-button">
+              <!-- Ícone Mais -->
+            </button>
+            <div class="product-cell image">
+              <img src="https://static.vecteezy.com/system/resources/previews/014/300/061/non_2x/man-profile-glyph-icon-anonymous-photo-for-documents-illustration-vector.jpg" alt="product">
+              <span>${professor.nome}</span>
+            </div>
+            <div class="product-cell category"><span class="cell-label">Disciplina:</span>${professor.disciplina}</div>
+            <div class="product-cell status-cell">
+              <span class="cell-label">Status:</span>
+              <span class="status active">${professor.status}</span>
+            </div>
+            <div class="product-cell senha-cell"><span class="cell-label">Senha:</span>${professor.senha}</div>
+          </div>
+        `;
+        conteudoPrincipal.innerHTML += professorRow;
+    });
+}
+
+async function carregarTurmas() {
+    const turmasSnapshot = await db.collection('instituicoes').doc(currentUserId).collection('turmas').get();
+    conteudoPrincipal.innerHTML = turmasContent;
+    turmasSnapshot.forEach(doc => {
+        const turma = doc.data();
+        const turmaRow = `
+          <div class="products-row" data-turma-id="${doc.id}"> 
+            <div id='turmaDiv' class="product-cell category"><span class="cell-label">Turma:</span>${turma.turma}</div>
+            <button class="btn btn-primary btn-sm gerenciarTurmaBotao">Gerenciar</button>
+          </div>
+        `;
+        conteudoPrincipal.innerHTML += turmaRow;
+    });
+
+    // Adiciona evento de clique aos botões "Gerenciar" após carregar as turmas
+    const gerenciarTurmaBotoes = document.querySelectorAll('.gerenciarTurmaBotao');
+    gerenciarTurmaBotoes.forEach(botao => {
+        botao.addEventListener('click', abrirModalGerenciarTurma);
+    });
+}
+
+async function abrirModalGerenciarTurma(event) {
+    const turmaRow = event.target.closest('.products-row'); // Seleciona a linha da tabela da turma
+    turmaIdSelecionada = turmaRow.dataset.turmaId; // Obtém o ID da turma do atributo data
+
+    // Define o nome da turma no modal
+    const nomeTurma = turmaRow.querySelector('#turmaDiv').innerText;
+    nomeTurmaGerenciarSpan.textContent = nomeTurma;
+
+    carregarProfessoresNoSelect();
+    carregarProfessoresDaTurma(turmaIdSelecionada);
+
+    gerenciarTurmaModal.show();
+}
+
+
+async function carregarProfessoresNoSelect() {
+  try {
+    const professoresSnapshot = await db
+      .collection('instituicoes')
+      .doc(currentUserId)
+      .collection('professores')
+      .get();
+
+    professorTurmaSelect.innerHTML = '';
+
+    professoresSnapshot.forEach(doc => {
+      const professor = doc.data();
+      const option = document.createElement('option');
+      option.value = doc.id; // Define o ID do professor como valor da opção
+      option.text = professor.nome;
+      professorTurmaSelect.appendChild(option);
+    });
+  } catch (error) {
+    console.error('Erro ao carregar professores no select:', error);
+  }
+}
+
+
+adicionarProfessorBotao.addEventListener('click', async () => {
+    const professorId = professorTurmaSelect.value;
+    
+    try {
+        // Obter o professor da coleção de professores
+        const professorDoc = await db.collection('instituicoes').doc(currentUserId).collection('professores').doc(professorId).get();
+        const professorData = professorDoc.data();
+
+        // Adicionar o professor à coleção de professores da turma
+        await db.collection('instituicoes').doc(currentUserId).collection('turmas').doc(turmaIdSelecionada).collection('professores').doc(professorId).set(professorData);
+
+        carregarProfessoresDaTurma(turmaIdSelecionada); // Atualiza a lista de professores na turma
+
+        console.log('Professor adicionado à turma com sucesso!');
+    } catch (error) {
+        console.error('Erro ao adicionar professor à turma:', error);
+    }
+});
+
+
+async function carregarProfessoresDaTurma(turmaId) {
+  try {
+    listaProfessoresTurma.innerHTML = ''; // Limpa a lista antes de carregar
+
+    const professoresSnapshot = await db
+      .collection('instituicoes')
+      .doc(currentUserId)
+      .collection('turmas')
+      .doc(turmaId)
+      .collection('professores')
+      .get();
+
+    if (professoresSnapshot.empty) {
+      listaProfessoresTurma.innerHTML = '<li>Nenhum professor nesta turma ainda.</li>';
+      return;
+    }
+
+    professoresSnapshot.forEach(doc => {
+      const professor = doc.data();
+      const listItem = document.createElement('li');
+      listItem.textContent = professor.nome; 
+      // Adiciona um botão para remover o professor (opcional)
+      const removeButton = document.createElement('button');
+      removeButton.textContent = 'Remover';
+      removeButton.addEventListener('click', () => removerProfessorDaTurma(turmaId, doc.id)); // Passa o ID do professor
+      listItem.appendChild(removeButton);
+      
+      listaProfessoresTurma.appendChild(listItem);
+    });
+  } catch (error) {
+    console.error('Erro ao carregar professores da turma:', error);
+  }
+}
+
+async function removerProfessorDaTurma(turmaId, professorId) {
+  try {
+    await db
+      .collection('instituicoes')
+      .doc(currentUserId)
+      .collection('turmas')
+      .doc(turmaId)
+      .collection('professores')
+      .doc(professorId)
+      .delete();
+
+    carregarProfessoresDaTurma(turmaId); // Atualiza a lista após remover
+    console.log('Professor removido da turma com sucesso!');
+  } catch (error) {
+    console.error('Erro ao remover professor da turma:', error);
+  }
+}
+
+  
+  // Log out functionality
+  const accountInfoMoreButton = document.getElementById('account-info-more');
+  const accountInfoMenu = document.getElementById('account-info-menu');
+  const logoutButton = document.getElementById('logout-button');
+
+  accountInfoMoreButton.addEventListener('click', () => {
+    accountInfoMenu.classList.toggle('show');
+  });
+
+  logoutButton.addEventListener('click', () => {
+    auth.signOut().then(() => {
+      window.location.href = '../pages/login-gerente.html';
+    }).catch(error => {
+      console.error('Erro ao sair da conta:', error);
+    });
+  });
+});
+
+
+
+
+  </script>
+</body>
+</html>

@@ -45,7 +45,7 @@
 
                   <div class="col-7" id="areaTexto">
                     <div class="chat-input d-flex">
-                      <input type="text" id="tema-input" class="form-control w-50" placeholder="Digite o tema da redação">
+                      <input type="text" id="tema-input" class="form-control w-50" placeholder="Tema da redação" disabled>
                       <textarea id="user-input" class="form-control fs-5" placeholder="Digite sua redação aqui..."></textarea>
                       <span id="abrir" class="bi bi-arrows-angle-contract fs-2" onclick="abrir()">
                       </span>
@@ -179,10 +179,24 @@
 
 <script type="module" defer>
 
+  const inputRedacao = document.getElementById('user-input'); 
   let input = document.getElementById("user-input")
   let inputV = input.value
   let btn = document.getElementById("confirmPrompt")
   let resultSpace = document.getElementById("chat-history")
+  const temaInput = document.getElementById("tema-input"); 
+  let redacaoId = null; 
+
+  let temaV = temaInput.value; 
+
+  // Capturar tema e descrição da URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const descricao = urlParams.get('descricao');
+  const tema = urlParams.get('tema');
+
+  if (tema && descricao) {
+    temaInput.value = tema;
+  }
 
   btn.addEventListener('click', clicar)
 
@@ -190,13 +204,65 @@
   import { GoogleGenerativeAI } from "@google/generative-ai";
 
   // Fetch your API_KEY
-  const API_KEY = "AIzaSyCPqHcG8bgiBqS8n0AKiDVaF3MUatetb18";
+  const API_KEY = "AIzaSyBCVK1OC5pYomKkEiX078N--2qzEsOls9o";
 
   // Access your API key (see "Set up your API key" above)
   const genAI = new GoogleGenerativeAI(API_KEY);
 
 
-   async function clicar() {
+  // Configurações do Firebase
+  const firebaseConfig = {
+  apiKey: "AIzaSyAbzHqrxU1bfZlCe8LWtizy12-40zdUfDE",
+  authDomain: "teste-97fc6.firebaseapp.com",
+  projectId: "teste-97fc6",
+  storageBucket: "teste-97fc6.appspot.com",
+  messagingSenderId: "470428227917",
+  appId: "1:470428227917:web:22a8c87a1a31b17a6a3f04",
+  measurementId: "G-55DEWK8CCX"
+};
+
+// Inicializa o Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+        
+
+        // Função para criar a redação no Firebase
+        async function criarRedacaoNoFirebase(tema, descricao) {
+  try {
+    const docRef = await db.collection("redacoesAluno").add({
+      tema: tema,
+      descricao: descricao,
+      conteudo: '', // Conteúdo inicial vazio
+      nota: 0, // Nota inicial 0
+      dataCriacao: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    redacaoId = docRef.id; 
+    console.log("Redação do aluno criada com ID: ", redacaoId);
+  } catch (e) {
+    console.error("Erro ao criar redação no Firebase: ", e);
+  }
+}
+
+// Função para salvar a redação no Firebase
+async function salvarRedacaoNoFirebase(conteudo, nota) {
+  try {
+    await db.collection("redacoesAluno").doc(redacaoId).update({
+      conteudo: conteudo,
+      nota: nota ? parseInt(nota) : null, 
+      dataUltimaAlteracao: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    console.log("Redação do aluno salva no Firebase.");
+  } catch (e) {
+    console.error("Erro ao salvar redação no Firebase: ", e);
+  }
+}
+
+
+
+async function clicar() {
+
+criarRedacaoNoFirebase(urlParams.get('tema'), descricao)
+
     let input = document.getElementById("user-input")
     let inputV = input.value
     let resultSpace = document.getElementById("chat-history")
@@ -800,6 +866,8 @@ var span = document.getElementsByClassName("close")[0];
 //      legendContainer.appendChild(legendItem);
 //  });
 
+salvarRedacaoNoFirebase(inputV, nota)
+
 
 
 
@@ -808,6 +876,7 @@ var span = document.getElementsByClassName("close")[0];
 
 
    }
+        
    
   //  let loadingExist = document.getElementById("loadingDiv")
 
