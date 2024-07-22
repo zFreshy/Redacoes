@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Instituição</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/cadastro.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 d-none d-lg-block bg-image"></div>
+            <div class="col-lg-6">
+                <div class="d-flex align-items-center min-vh-100 py-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-10 col-xl-8 mx-auto">
+                                <h3 class="display-6">Cadastro de Instituição Escolar</h3>
+                                <form id="cadastroInstituicaoForm">
+                                    <div class="mb-3">
+                                        <label for="nomeInstituicao" class="form-label">Nome da Instituição</label>
+                                        <input type="text" class="form-control" id="nomeInstituicao" name="nomeInstituicao" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="enderecoInstituicao" class="form-label">Endereço</label>
+                                        <input type="text" class="form-control" id="enderecoInstituicao" name="enderecoInstituicao" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="emailInstituicao" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="emailInstituicao" name="emailInstituicao" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="telefoneInstituicao" class="form-label">Telefone</label>
+                                        <input type="tel" class="form-control" id="telefoneInstituicao" name="telefoneInstituicao" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="senhaInstituicao" class="form-label">Senha</label>
+                                        <input type="password" class="form-control" id="senhaInstituicao" name="senhaInstituicao" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirmarSenhaInstituicao" class="form-label">Confirmar Senha</label>
+                                        <input type="password" class="form-control" id="confirmarSenhaInstituicao" name="confirmarSenhaInstituicao" required>
+                                        <div id="senhaMatchError" class="text-danger mt-2"></div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary btn-lg" disabled>Cadastrar</button> 
+                                    </div>
+                                    <div class="text-center mt-3">
+                                        <p>Já possui uma conta? <a href="./login-gerente.html">Clique aqui</a></p>
+                                    </div>
+                                </form>
+                                <p id="mensagemErro" class="text-danger mt-3 text-center"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics-compat.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAbzHqrxU1bfZlCe8LWtizy12-40zdUfDE",
+            authDomain: "teste-97fc6.firebaseapp.com",
+            projectId: "teste-97fc6",
+            storageBucket: "teste-97fc6.appspot.com",
+            messagingSenderId: "470428227917",
+            appId: "1:470428227917:web:ef9308034050ca366a3f04",
+            measurementId: "G-F50QJE3734"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const analytics = firebase.analytics();
+
+        // Firebase services
+        async function signup(email, password) {
+            try {
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                return userCredential.user;
+            } catch (error) {
+                console.error("Error signing up:", error);
+                throw error;
+            }
+        }
+
+        async function addUserData(userId, data) {
+            try {
+                await db.collection("instituicoes").doc(userId).set({
+                    userId: userId,
+                    ...data
+                });
+            } catch (error) {
+                console.error("Error adding document:", error);
+                throw error;
+            }
+        }
+    </script>
+
+    <script>
+        // cadastro.js
+        const cadastroInstituicaoForm = document.getElementById('cadastroInstituicaoForm');
+        const mensagemErro = document.getElementById('mensagemErro');
+        const senhaMatchError = document.getElementById('senhaMatchError');
+
+        // Função para validar o email
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        // Função para validar o telefone
+        function validatePhone(telefone) {
+            const re = /^\(?(\d{3})\)?[-. ]?(\d{3})[-. ]?(\d{4})$/;
+            return re.test(telefone);
+        }
+
+        // Função para verificar se as senhas coincidem
+        function validatePasswordMatch(senha, confirmarSenha) {
+            if (senha !== confirmarSenha) {
+                senhaMatchError.textContent = "As senhas não coincidem.";
+                senhaMatchError.style.display = 'block';
+                return false;
+            } else {
+                senhaMatchError.textContent = "";
+                senhaMatchError.style.display = 'none';
+                return true;
+            }
+        }
+
+        // Função para validar todos os campos do formulário
+        function validateForm() {
+            const nome = document.getElementById('nomeInstituicao').value;
+            const endereco = document.getElementById('enderecoInstituicao').value;
+            const email = document.getElementById('emailInstituicao').value;
+            const telefone = document.getElementById('telefoneInstituicao').value;
+            const senha = document.getElementById('senhaInstituicao').value;
+            const confirmarSenha = document.getElementById('confirmarSenhaInstituicao').value;
+
+            // Validação básica de entrada
+            if (!nome || !endereco || !email || !telefone || !senha || !confirmarSenha) {
+                mensagemErro.textContent = "Por favor, preencha todos os campos.";
+                mensagemErro.style.display = 'block';
+                return false;
+            }
+
+            // Validação de email
+            if (!validateEmail(email)) {
+                mensagemErro.textContent = "Por favor, digite um email válido.";
+                mensagemErro.style.display = 'block';
+                return false;
+            }
+
+            // Validação de telefone
+            if (!validatePhone(telefone)) {
+                mensagemErro.textContent = "Por favor, digite um número de telefone válido.";
+                mensagemErro.style.display = 'block';
+                return false;
+            }
+
+            // Validação de senhas
+            if (!validatePasswordMatch(senha, confirmarSenha)) {
+                return false;
+            }
+
+            // Se todos os campos forem válidos, limpe as mensagens de erro
+            mensagemErro.style.display = 'none';
+            return true;
+        }
+
+        // Habilita/desabilita o botão "Cadastrar"
+        function toggleSubmitButton(enabled) {
+            const submitButton = document.querySelector("#cadastroInstituicaoForm button[type='submit']");
+            submitButton.disabled = !enabled; // Desabilita o botão se enabled for false
+        }
+
+        // Chama a função toggleSubmitButton() para atualizar o estado do botão
+        toggleSubmitButton(false); // Desabilita o botão inicialmente
+
+        // Adiciona um listener para os campos do formulário
+        cadastroInstituicaoForm.addEventListener('input', () => {
+            toggleSubmitButton(validateForm()); // Habilita/desabilita o botão com base na validação
+        });
+
+        // Evento de envio do formulário
+        cadastroInstituicaoForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // Valida os campos do formulário
+            if (!validateForm()) {
+                return; // Sai da função se o formulário for inválido
+            }
+
+            // Se o formulário for válido, prossiga com o cadastro
+            const nome = document.getElementById('nomeInstituicao').value;
+            const endereco = document.getElementById('enderecoInstituicao').value;
+            const email = document.getElementById('emailInstituicao').value;
+            const telefone = document.getElementById('telefoneInstituicao').value;
+            const senha = document.getElementById('senhaInstituicao').value;
+
+            try {
+                const user = await signup(email, senha);
+                await addUserData(user.uid, {
+                    nome,
+                    endereco,
+                    email,
+                    telefone,
+                    tipo: 'instituicao'
+                });
+                alert('Instituição cadastrada com sucesso!');
+                window.location.href = './dashboard-instituicao.html';
+            } catch (error) {
+                console.error('Erro ao cadastrar instituição:', error);
+
+                // Verifica se o erro é de senha fraca
+                if (error.code === 'auth/weak-password') {
+                    mensagemErro.textContent = 'A senha deve ter pelo menos 6 caracteres.';
+                } else {
+                    mensagemErro.textContent = 'Erro ao cadastrar instituição. Tente novamente.';
+                }
+                mensagemErro.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

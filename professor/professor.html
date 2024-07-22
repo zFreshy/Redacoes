@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Painel do Professor</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <h1>Criar Redação</h1>
+    <form id="criarRedacaoForm">
+        <label for="tema">Tema:</label><br>
+        <input type="text" id="tema" name="tema" required><br><br>
+        <label for="descricao">Descrição:</label><br>
+        <textarea id="descricao" name="descricao" required></textarea><br><br>
+        <button type="submit">Criar</button>
+    </form>
+
+    <!-- <h2>Redações Criadas</h2>
+    <ul id="listaRedacoes">
+         Lista de redações será exibida aqui
+    </ul>  -->
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+    <script src="professor.js"></script> 
+</body>
+</html>
